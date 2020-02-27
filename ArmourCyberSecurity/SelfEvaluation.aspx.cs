@@ -135,7 +135,7 @@ namespace ArmourCyberSecurity
                         tr.Cells.Add(td1);
                         tr.Cells.Add(td2);
 
-                        Table1.Rows.Add(tr);
+                        tbl_RegionalFines.Rows.Add(tr);
                     }
                 }
                 else

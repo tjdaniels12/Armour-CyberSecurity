@@ -19,11 +19,19 @@
     </style>
     <script>
         function callFunction(chkbox) {
-            alert(chkbox.value);
-            if (chkbox.value == 'Canada') {
-
+            //alert(chkbox.value);
+            debugger
+            var growDiv = document.getElementById('grow');
+            if (growDiv.clientHeight && (chkbox.value == 'Europe' || chkbox.value == 'Canada' || chkbox.value == 'Brazil')) {
+                growDiv.style.height = 0;
+                //alert(chkbox.value + "inside grow");
+            } else {
+                var wrapper = document.querySelector('.measuringWrapper');
+                growDiv.style.height = wrapper.clientHeight + "px";
+                //alert(chkbox.value + "inside measure");
             }
         }
+
     </script>
 </head>
 <body>
@@ -32,6 +40,38 @@
             Self Evaluation
 
             <asp:Table ID="Table1" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_PrivacyCulture" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_RegionalSpecific" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_RegionalSpecific_reflex" runat="server">
+            </asp:Table>
+
+
+            <div id='grow' style="background-color: aqua;">
+                <div class='measuringWrapper' style="background-color: aqua;">
+                    <asp:Table ID="tbl_RegionalFines" runat="server">
+                    </asp:Table>
+                </div>
+            </div>
+
+            <asp:Table ID="tbl_PrivacyEngg" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_DataControl" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_Consent" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_IncidentResp" runat="server">
+            </asp:Table>
+
+            <asp:Table ID="tbl_EmpTraining" runat="server">
             </asp:Table>
 
         </div>
