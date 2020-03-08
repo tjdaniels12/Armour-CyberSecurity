@@ -27,6 +27,20 @@ namespace ArmourCyberSecurity
             return ds.Tables[0];
         }
 
+        public DataTable GetUserReport(string userId)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT question_id, question_type, answer_wt FROM ar_sec_User_Feedback_Collection_Level1 WHERE userId = @userId";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            cnn.Close();
+            return ds.Tables[0];
+        }
+
         public DataTable LoadRegion()
         {
             SqlConnection cnn = new SqlConnection(connetionString);
@@ -53,6 +67,19 @@ namespace ArmourCyberSecurity
             cmd.Parameters.Add(new SqlParameter("@ansText", ansText));
             cmd.ExecuteNonQuery();
             cnn.Close();
+        }
+
+        public DataTable GetReportComments()
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT criteria, low_cmt, med_cmt, high_cmt FROM [ar_sec_Level1_FeedbackReport]";
+            cmd = new SqlCommand(sql, cnn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            cnn.Close();
+            return ds.Tables[0];
         }
     }
 }

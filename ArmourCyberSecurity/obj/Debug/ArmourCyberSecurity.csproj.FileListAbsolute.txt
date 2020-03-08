@@ -69,3 +69,7 @@ C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\obj\Debug\Ar
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\obj\Debug\ArmourCyberSecurity.csproj.CopyComplete
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\obj\Debug\ArmourCyberSecurity.dll
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\obj\Debug\ArmourCyberSecurity.pdb
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\AjaxControlToolkit.dll
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.dll
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.xml
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.xmlworker.dll

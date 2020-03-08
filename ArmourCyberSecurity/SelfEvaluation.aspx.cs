@@ -18,312 +18,6 @@ namespace ArmourCyberSecurity
             }
         }
 
-        protected void Page_PreInit(object sender, EventArgs e)
-        {
-            //LoadQuestions();
-        }
-
-        //private void LoadQuestions()
-        //{
-        //    DAL dal = new DAL();
-        //    DataTable dt = new DataTable();
-        //    dt = dal.LoadLevel1Questions();
-        //    DisplayQuestions(dt);
-        //}
-
-        //private void DisplayQuestions(DataTable dt)
-        //{
-        //    foreach (DataRow row in dt.Rows)
-        //    {
-        //        if (row["question_type"].ToString() == "Privacy Culture Questions")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_PrivacyCulture.Rows.Add(tr);
-
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Regional Specific Questions")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "chkbx4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                CheckBoxList chkbxlist = new CheckBoxList();
-        //                chkbxlist.Attributes.Add("runat", "server");
-        //                chkbxlist.ID = "Ans" + row["question_id"].ToString();
-        //                chkbxlist.Items.Add(new ListItem("Canada"));
-        //                chkbxlist.Items.Add(new ListItem("Europe"));
-        //                chkbxlist.Items.Add(new ListItem("Brazil"));
-        //                chkbxlist.ClientIDMode = ClientIDMode.Static;
-        //                foreach (ListItem lstitem in chkbxlist.Items)
-        //                {
-        //                    lstitem.Attributes.Add("onclick", "callFunction(this,Ques7.UniqueID,Ans7.UniqueID);");
-        //                }
-        //                td2.Controls.Add(chkbxlist);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_RegionalSpecific.Rows.Add(tr);
-        //            }
-        //            else
-        //            if (row["ctrl_type"].ToString() == "dd2")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.ClientIDMode = ClientIDMode.Static;
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_RegionalSpecific_reflex.Rows.Add(tr);
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Regional Fines")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd2")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_RegionalFines.Rows.Add(tr);
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Privacy Engineering")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_PrivacyEngg.Rows.Add(tr);
-
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Data Control")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_DataControl.Rows.Add(tr);
-
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Consent")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_Consent.Rows.Add(tr);
-
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Incident Response")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_IncidentResp.Rows.Add(tr);
-
-        //            }
-        //        }
-        //        else
-        //        if (row["question_type"].ToString() == "Employee Training")
-        //        {
-        //            if (row["ctrl_type"].ToString() == "dd4")
-        //            {
-        //                TableRow tr = new TableRow();
-
-        //                TableCell td1 = new TableCell();
-        //                Label lbl = new Label();
-        //                lbl.Attributes.Add("runat", "server");
-        //                lbl.ID = "Ques" + row["question_id"].ToString();
-        //                lbl.Text = row["question"].ToString();
-                        
-        //                td1.Controls.Add(lbl);
-
-        //                TableCell td2 = new TableCell();
-        //                DropDownList ddl = new DropDownList();
-        //                ddl.Attributes.Add("runat", "server");
-        //                ddl.ID = "Ans" + row["question_id"].ToString();
-        //                ddl.Items.Add(new ListItem("YES", row["question_wt_yes"].ToString()));
-        //                ddl.Items.Add(new ListItem("NO", row["question_wt_no"].ToString()));
-        //                ddl.Items.Add(new ListItem("SOMEWHAT", row["question_wt_somewhat"].ToString()));
-        //                ddl.Items.Add(new ListItem("UNSURE", row["question_wt_unsure"].ToString()));
-                        
-        //                td2.Controls.Add(ddl);
-
-        //                tr.Cells.Add(td1);
-        //                tr.Cells.Add(td2);
-
-        //                tbl_EmpTraining.Rows.Add(tr);
-
-        //            }
-        //        }
-        //    }      
-                
-        //}
-
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
             DAL dal = new DAL();
@@ -331,6 +25,8 @@ namespace ArmourCyberSecurity
             dt = dal.LoadLevel1Questions();
 
             SaveAnswers(dt);
+
+            Response.Redirect("~/SelfEvaluationReport.aspx", false);
         }
 
         private void SaveAnswers(DataTable dt)
@@ -339,6 +35,7 @@ namespace ArmourCyberSecurity
             DAL dal = new DAL();
             Guid obj = Guid.NewGuid();
             string userId = obj.ToString();
+            Session["userId"] = userId;
 
             foreach (DataRow row in dt.Rows)
             {
@@ -695,6 +392,226 @@ namespace ArmourCyberSecurity
             checkBoxList.DataTextField = "region_name";
             checkBoxList.DataValueField = "region_id";
             checkBoxList.DataBind();
+        }
+
+        protected void chkbxAns6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (ListItem item in chkbxAns6.Items)
+            {
+                if (item.Selected)
+                {
+                    if(item.Text == "Canada")
+                    {
+                        lblQues7.Visible = true;
+                        ddlAns7.Visible = true;
+                    }
+                    if (item.Text == "Europe")
+                    {
+                        lblQues8.Visible = true;
+                        ddlAns8.Visible = true;
+
+                        lblQues11.Visible = true;
+                        ddlAns11.Visible = true;
+                    }
+                    if (item.Text == "California")
+                    {
+                        lblQues9.Visible = true;
+                        ddlAns9.Visible = true;
+
+                        lblQues12.Visible = true;
+                        ddlAns12.Visible = true;
+                    }
+                    if (item.Text == "Brazil")
+                    {
+                        lblQues10.Visible = true;
+                        ddlAns10.Visible = true;
+
+                        lblQues13.Visible = true;
+                        ddlAns13.Visible = true;
+                    }
+                }
+                else
+                {
+                    if (item.Text == "Canada")
+                    {
+                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        {
+                            if (!itemIn5.Selected)
+                            {
+                                if (itemIn5.Text == "Canada")
+                                {
+                                    lblQues7.Visible = false;
+                                    ddlAns7.Visible = false;
+                                    reqAns7.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                    if (item.Text == "Europe")
+                    {
+                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        {
+                            if (!itemIn5.Selected)
+                            {
+                                if (itemIn5.Text == "Europe")
+                                {
+                                    lblQues8.Visible = false;
+                                    ddlAns8.Visible = false;
+                                    reqAns8.Enabled = false;
+
+                                    lblQues11.Visible = false;
+                                    ddlAns11.Visible = false;
+                                    reqAns11.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                    if (item.Text == "California")
+                    {
+                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        {
+                            if (!itemIn5.Selected)
+                            {
+                                if (itemIn5.Text == "California")
+                                {
+                                    lblQues9.Visible = false;
+                                    ddlAns9.Visible = false;
+                                    reqAns9.Enabled = false;
+                                }
+                            }
+                        }
+
+                        lblQues12.Visible = true;
+                        ddlAns12.Visible = true;
+                    }
+                    if (item.Text == "Brazil")
+                    {
+                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        {
+                            if (!itemIn5.Selected)
+                            {
+                                if (itemIn5.Text == "Brazil")
+                                {
+                                    lblQues10.Visible = false;
+                                    ddlAns10.Visible = false;
+                                    reqAns10.Enabled = false;
+
+                                    lblQues13.Visible = false;
+                                    ddlAns13.Visible = false;
+                                    reqAns13.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void chkbxAns5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (ListItem item in chkbxAns5.Items)
+            {
+                if (item.Selected)
+                {
+                    if (item.Text == "Canada")
+                    {
+                        lblQues7.Visible = true;
+                        ddlAns7.Visible = true;
+                    }
+                    if (item.Text == "Europe")
+                    {
+                        lblQues8.Visible = true;
+                        ddlAns8.Visible = true;
+
+                        lblQues11.Visible = true;
+                        ddlAns11.Visible = true;
+                    }
+                    if (item.Text == "California")
+                    {
+                        lblQues9.Visible = true;
+                        ddlAns9.Visible = true;
+                    }
+                    if (item.Text == "Brazil")
+                    {
+                        lblQues10.Visible = true;
+                        ddlAns10.Visible = true;
+
+                        lblQues13.Visible = false;
+                        ddlAns13.Visible = false;
+                    }
+                }
+                else
+                {
+                    if (item.Text == "Canada")
+                    {
+                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        {
+                            if (!itemIn6.Selected)
+                            {
+                                if (itemIn6.Text == "Canada")
+                                {
+                                    lblQues7.Visible = false;
+                                    ddlAns7.Visible = false;
+                                    reqAns7.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                    if (item.Text == "Europe")
+                    {
+                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        {
+                            if (!itemIn6.Selected)
+                            {
+                                if (itemIn6.Text == "Europe")
+                                {
+                                    lblQues8.Visible = false;
+                                    ddlAns8.Visible = false;
+                                    reqAns8.Enabled = false;
+
+                                    lblQues11.Visible = false;
+                                    ddlAns11.Visible = false;
+                                    reqAns11.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                    if (item.Text == "California")
+                    {
+                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        {
+                            if (!itemIn6.Selected)
+                            {
+                                if (itemIn6.Text == "California")
+                                {
+                                    lblQues9.Visible = false;
+                                    ddlAns9.Visible = false;
+                                    reqAns9.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                    if (item.Text == "Brazil")
+                    {
+                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        {
+                            if (!itemIn6.Selected)
+                            {
+                                if (itemIn6.Text == "Brazil")
+                                {
+                                    lblQues10.Visible = false;
+                                    ddlAns10.Visible = false;
+                                    reqAns10.Enabled = false;
+
+                                    lblQues13.Visible = false;
+                                    ddlAns13.Visible = false;
+                                    reqAns13.Enabled = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
