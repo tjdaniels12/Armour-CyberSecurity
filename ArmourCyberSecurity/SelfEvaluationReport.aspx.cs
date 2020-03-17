@@ -26,7 +26,7 @@ namespace ArmourCyberSecurity
 
         protected void btnHide_Click(object sender, EventArgs e)
         {
-            CreatePdf(pcq, rsq, rfq, peq, dcq, cq, irq, Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
+            CreatePdf(Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
         }
 
        
@@ -45,7 +45,7 @@ namespace ArmourCyberSecurity
             dt = GetReport();
             foreach (DataRow row in dt.Rows)
             {
-                if ((row["question_type"].ToString() == "Privacy Culture Questions") || (row["question_type"].ToString() == "Employee Training"))
+                if (row["question_type"].ToString() == "Privacy Culture Questions")
                 {
                     if (row["answer_wt"].ToString() != "-1")
                     {
@@ -109,7 +109,7 @@ namespace ArmourCyberSecurity
             {
                 if ((row["criteria"].ToString() == "Privacy Culture Questions"))
                 {
-                    if (pcq > 6 && pcq <= 10)
+                    if (pcq > 6 )
                     {
                         pcq_cmt = row["high_cmt"].ToString();
                     }
@@ -127,7 +127,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Regional Specific Questions")
                 {
-                    if (rsq > 6 && rsq <= 10)
+                    if (rsq > 6)
                     {
                         rsq_cmt = row["high_cmt"].ToString();
                     }
@@ -145,7 +145,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Regional Fines")
                 {
-                    if (rfq > 6 && rfq <= 10)
+                    if (rfq > 6)
                     {
                         rfq_cmt = row["high_cmt"].ToString();
                     }
@@ -164,7 +164,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Privacy Engineering")
                 {
-                    if (peq > 6 && peq <= 10)
+                    if (peq > 6)
                     {
                         peq_cmt = row["high_cmt"].ToString();
                     }
@@ -182,7 +182,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Data Control")
                 {
-                    if (dcq > 6 && dcq <= 10)
+                    if (dcq > 6)
                     {
                         dcq_cmt = row["high_cmt"].ToString();
                     }
@@ -201,7 +201,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Consent")
                 {
-                    if (cq > 6 && cq <= 10)
+                    if (cq > 6)
                     {
                         cq_cmt = row["high_cmt"].ToString();
                     }
@@ -220,7 +220,7 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Incident Response")
                 {
-                    if (irq > 6 && irq <= 10)
+                    if (irq > 6)
                     {
                         irq_cmt = row["high_cmt"].ToString();
                     }
@@ -241,30 +241,37 @@ namespace ArmourCyberSecurity
             bullet1.Text = "\u25C9";
             comment1.Text = pcq_cmt;
             Session["pcq_cmt"] = comment1.Text;
+            Session["pcq"] = pcq;
 
             bullet2.Text = "\u25C9";
             comment2.Text = rsq_cmt;
             Session["rsq_cmt"] = comment2.Text;
+            Session["rsq"] = rsq;
 
             bullet3.Text = "\u25C9";
             comment3.Text = rfq_cmt;
             Session["rfq_cmt"] = comment3.Text;
+            Session["rfq"] = rfq;
 
             bullet4.Text = "\u25C9";
             comment4.Text = peq_cmt;
             Session["peq_cmt"] = comment4.Text;
+            Session["peq"] = peq;
 
             bullet5.Text = "\u25C9";
             comment5.Text = dcq_cmt;
             Session["dcq_cmt"] = comment5.Text;
+            Session["dcq"] = dcq;
 
             bullet6.Text = "\u25C9";
             comment6.Text = cq_cmt;
             Session["cq_cmt"] = comment6.Text;
+            Session["cq"] = cq;
 
             bullet7.Text = "\u25C9";
             comment7.Text = irq_cmt;
             Session["irq_cmt"] = comment7.Text;
+            Session["irq"] = irq;
 
         }
 
@@ -288,6 +295,7 @@ namespace ArmourCyberSecurity
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
                         pdfDoc.Open();
 
+                        //Watermark
                         string bgimagepath = Server.MapPath("images");
                         Image bgimg = Image.GetInstance(bgimagepath + "/Binary-Tattoo.jpg");
                         bgimg.ScaleToFit(1000, 500);
@@ -334,9 +342,9 @@ namespace ArmourCyberSecurity
     
                         table = new PdfPTable(2);
                         //table.TotalWidth = 2000f;
-                        table.WidthPercentage = 90f;
+                        table.WidthPercentage = 95f;
                         table.HorizontalAlignment = Element.ALIGN_CENTER;
-                        table.SetWidths(new float[] { 1f, 9f });
+                        table.SetWidths(new float[] { 2f, 8f });
                         table.SpacingBefore = 20f;
                         table.DefaultCell.Border = Rectangle.NO_BORDER;
 
@@ -348,8 +356,8 @@ namespace ArmourCyberSecurity
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
@@ -358,6 +366,8 @@ namespace ArmourCyberSecurity
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
@@ -369,8 +379,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -380,26 +390,31 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(pcq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(pcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(pcq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
                         /* Privacy Culture */
 
@@ -409,8 +424,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -420,48 +435,33 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(rsq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(rsq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(rsq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
-                        /* Regional Specific Questions */
-
-                        /* Regional Fines */
-                        //phrase = new Phrase();
-                        //phrase.Add(new Chunk("Regional Fines\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
-                        //cell = new PdfPCell(phrase);
-                        //cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
-                        //cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
-                        //cell.PaddingBottom = 2f;
-                        //cell.PaddingTop = 2f;
-                        //cell.Border = PdfPCell.NO_BORDER;
-                        //table.AddCell(cell);
-
-                        //phrase = new Phrase();
-                        //phrase.Add(new Chunk(rfq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
-                        //cell = new PdfPCell(phrase);
-                        //cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
-                        //cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
-                        //cell.Border = PdfPCell.NO_BORDER;
-                        //table.AddCell(cell);
-                        /* Regional Fines */
+                        /* Regional Specific Questions */                       
 
                         /* Privacy Engineering */
                         phrase = new Phrase();
@@ -469,8 +469,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -480,28 +480,79 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(peq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(peq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(peq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
                         /* Privacy Engineering */
+
+                        pdfDoc.Add(table);
+                        pdfDoc.NewPage();
+
+                        table = new PdfPTable(2);
+                        table.TotalWidth = 500f;
+                        table.LockedWidth = true;
+                        table.SetWidths(new float[] { 0.3f, 0.7f });
+
+                        //Armor Logo
+                        img.ScalePercent(30f);
+                        cell = new PdfPCell(img);
+                        cell.BorderColor = BaseColor.WHITE;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
+                        table.AddCell(cell);
+
+                        //Armor Address
+                        phrase = new Phrase();
+                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.RED)));
+                        phrase.Add(new Chunk("77 Bloor St West,\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Suite 600, Toronto\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("ON M5S 1M2", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        cell = new PdfPCell(phrase);
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.BorderColor = BaseColor.WHITE;
+                        cell.PaddingBottom = 2f;
+                        cell.PaddingTop = 0f;
+                        table.AddCell(cell);
+
+                        color = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#A9A9A9"));
+                        DrawLine(writer, 25f, pdfDoc.Top - 79f, pdfDoc.PageSize.Width - 25f, pdfDoc.Top - 79f, color);
+                        DrawLine(writer, 25f, pdfDoc.Top - 80f, pdfDoc.PageSize.Width - 25f, pdfDoc.Top - 80f, color);
+
+                        pdfDoc.Add(table);
+
+                        table = new PdfPTable(2);
+                        //table.TotalWidth = 2000f;
+                        table.WidthPercentage = 95f;
+                        table.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.SetWidths(new float[] { 2f, 8f });
+                        table.SpacingBefore = 20f;
+                        table.DefaultCell.Border = Rectangle.NO_BORDER;
 
                         /* Data Control */
                         phrase = new Phrase();
@@ -509,8 +560,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -520,26 +571,31 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(dcq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(dcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(dcq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
                         /* Data Control */
 
@@ -549,8 +605,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -560,26 +616,31 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(cq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(cq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(cq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
                         /* Consent */
 
@@ -589,8 +650,8 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
@@ -600,32 +661,47 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_LEFT;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
-                        cell.PaddingBottom = 2f;
-                        cell.PaddingTop = 2f;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         cell.Border = PdfPCell.NO_BORDER;
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(irq + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
+                        phrase.Add(new Chunk(irq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(irq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
                         cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
                         /* Incident Response */
 
                         pdfDoc.Add(table);
 
-                        
+                        //Adding watermark to all pages
+                        int pn = writer.PageNumber;
+                        for (int i = 1; i <= pn; i++)
+                        {
+                            string bgimagepath2 = Server.MapPath("images");
+                            Image bgimg2 = Image.GetInstance(bgimagepath2 + "/Binary-Tattoo.jpg");
+                            bgimg2.ScaleToFit(1000, 500);
+                            bgimg2.Alignment = Image.UNDERLYING;
+                            bgimg2.SetAbsolutePosition(60, 200);
+                            pdfDoc.Add(bgimg2);
+                        }
 
                         XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                         pdfDoc.Close();
