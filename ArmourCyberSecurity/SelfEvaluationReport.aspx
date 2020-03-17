@@ -180,7 +180,7 @@
         <div>
             <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" BehaviorID="mpe" runat="server"
-                PopupControlID="pnlPopup" TargetControlID="lnkDummy" BackgroundCssClass="modalBackground" CancelControlID="btnHide">
+                PopupControlID="pnlPopup" TargetControlID="lnkDummy" BackgroundCssClass="modalBackground" CancelControlID="lnkDummyCancel">
             </cc1:ModalPopupExtender>
 
             <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none">
@@ -191,7 +191,8 @@
                     <asp:TextBox ID="txt_EmalId" runat="server" placeholder="Email Address" ClientIDMode="Static"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="regEmailId" runat="server" ControlToValidate="txt_EmalId" ErrorMessage="Please enter valid email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">  </asp:RegularExpressionValidator>
                     <br />
-                    <asp:Button ID="btnHide" runat="server" Text="Submit" ClientIDMode="Static" OnClick="btnHide_Click" Enabled="false" />
+                    <asp:LinkButton ID="lnkDummyCancel" runat="server"></asp:LinkButton>
+                    <asp:Button ID="btnHide" runat="server" Text="Submit" ClientIDMode="Static" Enabled="false" OnClick="btnHide_Click"/>
                 </div>
             </asp:Panel>
 

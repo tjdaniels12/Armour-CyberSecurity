@@ -394,111 +394,141 @@ namespace ArmourCyberSecurity
             checkBoxList.DataBind();
         }
 
-        protected void chkbxAns6_SelectedIndexChanged(object sender, EventArgs e)
+        protected void chkbxAns7_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (ListItem item in chkbxAns6.Items)
+            foreach (ListItem item in chkbxAns7.Items)
             {
                 if (item.Selected)
                 {
-                    if(item.Text == "Canada")
-                    {
-                        lblQues7.Visible = true;
-                        ddlAns7.Visible = true;
-                    }
-                    if (item.Text == "Europe")
+                    if (item.Text == "Canada")
                     {
                         lblQues8.Visible = true;
                         ddlAns8.Visible = true;
-
-                        lblQues11.Visible = true;
-                        ddlAns11.Visible = true;
-                    }
-                    if (item.Text == "California")
-                    {
-                        lblQues9.Visible = true;
-                        ddlAns9.Visible = true;
+                        Ques8Div.Visible = true;
 
                         lblQues12.Visible = true;
                         ddlAns12.Visible = true;
+                        Ques12Div.Visible = true;
                     }
-                    if (item.Text == "Brazil")
+                    if (item.Text == "Europe")
+                    {
+                        lblQues9.Visible = true;
+                        ddlAns9.Visible = true;
+                        Ques9Div.Visible = true;
+
+                        lblQues13.Visible = true;
+                        ddlAns13.Visible = true;
+                        Ques13Div.Visible = true;
+
+                        lblQues23.Visible = true;
+                        ddlAns23.Visible = true;
+                        Ques23Div.Visible = true;
+                    }
+                    if (item.Text == "California")
                     {
                         lblQues10.Visible = true;
                         ddlAns10.Visible = true;
 
-                        lblQues13.Visible = true;
-                        ddlAns13.Visible = true;
+                        lblQues14.Visible = true;
+                        ddlAns14.Visible = true;
+                    }
+                    if (item.Text == "Brazil")
+                    {
+                        lblQues11.Visible = true;
+                        ddlAns11.Visible = true;
+                        Ques11Div.Visible = true;
+
+                        lblQues15.Visible = true;
+                        ddlAns15.Visible = true;
+                        Ques15Div.Visible = true;
                     }
                 }
                 else
                 {
                     if (item.Text == "Canada")
                     {
-                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        foreach (ListItem itemIn5 in chkbxAns6.Items)
                         {
                             if (!itemIn5.Selected)
                             {
                                 if (itemIn5.Text == "Canada")
                                 {
-                                    lblQues7.Visible = false;
-                                    ddlAns7.Visible = false;
-                                    reqAns7.Enabled = false;
+                                    lblQues8.Visible = false;
+                                    ddlAns8.Visible = false;
+                                    reqAns8.Enabled = false;
+                                    Ques8Div.Visible = false;
+
+                                    lblQues12.Visible = false;
+                                    ddlAns12.Visible = false;
+                                    reqAns12.Enabled = false;
+                                    Ques8Div.Visible = false;
                                 }
                             }
                         }
                     }
                     if (item.Text == "Europe")
                     {
-                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        foreach (ListItem itemIn5 in chkbxAns6.Items)
                         {
                             if (!itemIn5.Selected)
                             {
                                 if (itemIn5.Text == "Europe")
                                 {
-                                    lblQues8.Visible = false;
-                                    ddlAns8.Visible = false;
-                                    reqAns8.Enabled = false;
+                                    lblQues9.Visible = false;
+                                    ddlAns9.Visible = false;
+                                    reqAns9.Enabled = false;
+                                    Ques9Div.Visible = false;
 
-                                    lblQues11.Visible = false;
-                                    ddlAns11.Visible = false;
-                                    reqAns11.Enabled = false;
+                                    lblQues13.Visible = false;
+                                    ddlAns13.Visible = false;
+                                    reqAns13.Enabled = false;
+                                    Ques13Div.Visible = false;
+
+                                    lblQues23.Visible = false;
+                                    ddlAns23.Visible = false;
+                                    reqAns23.Enabled = false;
+                                    Ques23Div.Visible = false;
                                 }
                             }
                         }
                     }
                     if (item.Text == "California")
                     {
-                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        foreach (ListItem itemIn5 in chkbxAns6.Items)
                         {
                             if (!itemIn5.Selected)
                             {
                                 if (itemIn5.Text == "California")
                                 {
-                                    lblQues9.Visible = false;
-                                    ddlAns9.Visible = false;
-                                    reqAns9.Enabled = false;
+                                    lblQues10.Visible = false;
+                                    ddlAns10.Visible = false;
+                                    reqAns10.Enabled = false;
+                                    Ques10Div.Visible = false;
                                 }
                             }
                         }
 
-                        lblQues12.Visible = true;
-                        ddlAns12.Visible = true;
+                        lblQues14.Visible = false;
+                        ddlAns14.Visible = false;
+                        Ques14Div.Visible = false;
                     }
                     if (item.Text == "Brazil")
                     {
-                        foreach (ListItem itemIn5 in chkbxAns5.Items)
+                        foreach (ListItem itemIn5 in chkbxAns6.Items)
                         {
                             if (!itemIn5.Selected)
                             {
                                 if (itemIn5.Text == "Brazil")
                                 {
-                                    lblQues10.Visible = false;
-                                    ddlAns10.Visible = false;
-                                    reqAns10.Enabled = false;
+                                    lblQues11.Visible = false;
+                                    ddlAns11.Visible = false;
+                                    reqAns11.Enabled = false;
+                                    Ques11Div.Visible = false;
 
-                                    lblQues13.Visible = false;
-                                    ddlAns13.Visible = false;
-                                    reqAns13.Enabled = false;
+                                    lblQues15.Visible = false;
+                                    ddlAns15.Visible = false;
+                                    reqAns15.Enabled = false;
+                                    Ques15Div.Visible = false;
                                 }
                             }
                         }
@@ -507,105 +537,130 @@ namespace ArmourCyberSecurity
             }
         }
 
-        protected void chkbxAns5_SelectedIndexChanged(object sender, EventArgs e)
+        protected void chkbxAns6_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            foreach (ListItem item in chkbxAns5.Items)
+            foreach (ListItem item in chkbxAns6.Items)
             {
                 if (item.Selected)
                 {
                     if (item.Text == "Canada")
                     {
-                        lblQues7.Visible = true;
-                        ddlAns7.Visible = true;
+                        lblQues8.Visible = true;
+                        ddlAns8.Visible = true;
+                        Ques8Div.Visible = true;
+
+                        lblQues12.Visible = true;
+                        ddlAns12.Visible = true;
+                        Ques12Div.Visible = true;
                     }
                     if (item.Text == "Europe")
                     {
-                        lblQues8.Visible = true;
-                        ddlAns8.Visible = true;
+                        lblQues9.Visible = true;
+                        ddlAns9.Visible = true;
+                        Ques9Div.Visible = true;
 
-                        lblQues11.Visible = true;
-                        ddlAns11.Visible = true;
+                        lblQues13.Visible = true;
+                        ddlAns13.Visible = true;
+                        Ques13Div.Visible = true;
+
+                        lblQues23.Visible = true;
+                        ddlAns23.Visible = true;
+                        Ques23Div.Visible = true;
                     }
                     if (item.Text == "California")
                     {
-                        lblQues9.Visible = true;
-                        ddlAns9.Visible = true;
+                        lblQues10.Visible = true;
+                        ddlAns10.Visible = true;
+                        Ques10Div.Visible = true;
                     }
                     if (item.Text == "Brazil")
                     {
-                        lblQues10.Visible = true;
-                        ddlAns10.Visible = true;
+                        lblQues11.Visible = true;
+                        ddlAns11.Visible = true;
+                        Ques11Div.Visible = true;
 
-                        lblQues13.Visible = false;
-                        ddlAns13.Visible = false;
+                        lblQues15.Visible = true;
+                        ddlAns15.Visible = true;
+                        Ques15Div.Visible = true;
                     }
                 }
                 else
                 {
                     if (item.Text == "Canada")
                     {
-                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        foreach (ListItem itemIn6 in chkbxAns7.Items)
                         {
                             if (!itemIn6.Selected)
                             {
                                 if (itemIn6.Text == "Canada")
                                 {
-                                    lblQues7.Visible = false;
-                                    ddlAns7.Visible = false;
-                                    reqAns7.Enabled = false;
+                                    lblQues8.Visible = false;
+                                    ddlAns8.Visible = false;
+                                    reqAns8.Enabled = false;
+                                    Ques8Div.Visible = false;
                                 }
                             }
                         }
                     }
                     if (item.Text == "Europe")
                     {
-                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        foreach (ListItem itemIn6 in chkbxAns7.Items)
                         {
                             if (!itemIn6.Selected)
                             {
                                 if (itemIn6.Text == "Europe")
                                 {
-                                    lblQues8.Visible = false;
-                                    ddlAns8.Visible = false;
-                                    reqAns8.Enabled = false;
+                                    lblQues9.Visible = false;
+                                    ddlAns9.Visible = false;
+                                    reqAns9.Enabled = false;
+                                    Ques9Div.Visible = false;
 
-                                    lblQues11.Visible = false;
-                                    ddlAns11.Visible = false;
-                                    reqAns11.Enabled = false;
+                                    lblQues13.Visible = false;
+                                    ddlAns13.Visible = false;
+                                    reqAns13.Enabled = false;
+                                    Ques13Div.Visible = false;
+
+                                    lblQues23.Visible = false;
+                                    ddlAns23.Visible = false;
+                                    reqAns23.Enabled = false;
+                                    Ques23Div.Visible = false;
                                 }
                             }
                         }
                     }
                     if (item.Text == "California")
                     {
-                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        foreach (ListItem itemIn6 in chkbxAns7.Items)
                         {
                             if (!itemIn6.Selected)
                             {
                                 if (itemIn6.Text == "California")
                                 {
-                                    lblQues9.Visible = false;
-                                    ddlAns9.Visible = false;
-                                    reqAns9.Enabled = false;
+                                    lblQues10.Visible = false;
+                                    ddlAns10.Visible = false;
+                                    reqAns10.Enabled = false;
+                                    Ques10Div.Visible = false;
                                 }
                             }
                         }
                     }
                     if (item.Text == "Brazil")
                     {
-                        foreach (ListItem itemIn6 in chkbxAns6.Items)
+                        foreach (ListItem itemIn6 in chkbxAns7.Items)
                         {
                             if (!itemIn6.Selected)
                             {
                                 if (itemIn6.Text == "Brazil")
                                 {
-                                    lblQues10.Visible = false;
-                                    ddlAns10.Visible = false;
-                                    reqAns10.Enabled = false;
+                                    lblQues11.Visible = false;
+                                    ddlAns11.Visible = false;
+                                    reqAns11.Enabled = false;
+                                    Ques11Div.Visible = false;
 
-                                    lblQues13.Visible = false;
-                                    ddlAns13.Visible = false;
-                                    reqAns13.Enabled = false;
+                                    lblQues15.Visible = false;
+                                    ddlAns15.Visible = false;
+                                    reqAns15.Enabled = false;
+                                    Ques15Div.Visible = false;
                                 }
                             }
                         }

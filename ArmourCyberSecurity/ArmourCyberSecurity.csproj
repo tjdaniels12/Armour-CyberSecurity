@@ -133,6 +133,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="images\armor-logo.png" />
+    <Content Include="images\Binary-Tattoo.jpg" />
     <Content Include="images\Binary-Tattoo.png" />
     <Content Include="LandingPage.aspx" />
     <Content Include="Login.aspx" />
