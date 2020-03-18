@@ -103,13 +103,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Image Logo;
         
         /// <summary>
-        /// img_networkAndInfoSec control.
+        /// lbl_pcq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_networkAndInfoSec;
+        protected global::System.Web.UI.WebControls.Label lbl_pcq_info;
+        
+        /// <summary>
+        /// img_pcq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_pcq;
+        
+        /// <summary>
+        /// lbl_pcq_score control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_pcq_score;
         
         /// <summary>
         /// bullet1 control.
@@ -130,13 +148,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Label comment1;
         
         /// <summary>
-        /// Image1 control.
+        /// lbl_rsq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::System.Web.UI.WebControls.Label lbl_rsq_info;
+        
+        /// <summary>
+        /// img_rsq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_rsq;
+        
+        /// <summary>
+        /// lbl_rsq_score control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_rsq_score;
         
         /// <summary>
         /// bullet2 control.
@@ -157,40 +193,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Label comment2;
         
         /// <summary>
-        /// Image2 control.
+        /// lbl_peq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image2;
+        protected global::System.Web.UI.WebControls.Label lbl_peq_info;
         
         /// <summary>
-        /// bullet3 control.
+        /// img_peq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label bullet3;
+        protected global::System.Web.UI.WebControls.Image img_peq;
         
         /// <summary>
-        /// comment3 control.
+        /// lbl_peq_score control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label comment3;
-        
-        /// <summary>
-        /// Image3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image3;
+        protected global::System.Web.UI.WebControls.Label lbl_peq_score;
         
         /// <summary>
         /// bullet4 control.
@@ -211,13 +238,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Label comment4;
         
         /// <summary>
-        /// Image4 control.
+        /// lbl_dcq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image4;
+        protected global::System.Web.UI.WebControls.Label lbl_dcq_info;
+        
+        /// <summary>
+        /// img_dcq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_dcq;
+        
+        /// <summary>
+        /// lbl_dcq_score control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_dcq_score;
         
         /// <summary>
         /// bullet5 control.
@@ -238,13 +283,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Label comment5;
         
         /// <summary>
-        /// Image5 control.
+        /// lbl_cq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image5;
+        protected global::System.Web.UI.WebControls.Label lbl_cq_info;
+        
+        /// <summary>
+        /// img_cq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_cq;
+        
+        /// <summary>
+        /// lbl_cq_score control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_cq_score;
         
         /// <summary>
         /// bullet6 control.
@@ -265,13 +328,31 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.WebControls.Label comment6;
         
         /// <summary>
-        /// Image6 control.
+        /// lbl_irq_info control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6;
+        protected global::System.Web.UI.WebControls.Label lbl_irq_info;
+        
+        /// <summary>
+        /// img_irq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_irq;
+        
+        /// <summary>
+        /// lbl_irq_score control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_irq_score;
         
         /// <summary>
         /// bullet7 control.

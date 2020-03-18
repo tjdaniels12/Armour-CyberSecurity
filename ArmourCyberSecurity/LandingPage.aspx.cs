@@ -13,5 +13,15 @@ namespace ArmourCyberSecurity
         {
 
         }
+
+        protected void level1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/SelfEvaluation.aspx", false);
+        }
+
+        protected void level2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/CustomRoadMap.aspx", false);
+        }
     }
 }

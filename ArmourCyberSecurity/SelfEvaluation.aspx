@@ -21,12 +21,15 @@
             var v3 = document.getElementById("<%=reqAns3.ClientID%>");
             var v4 = document.getElementById("<%=reqAns4.ClientID%>");
             var v5 = document.getElementById("<%=reqAns5.ClientID%>");
+            var v6 = document.getElementById("<%=cvDemoList.ClientID%>");
+            
             ValidatorValidate(v1);
             ValidatorValidate(v2);
             ValidatorValidate(v3);
             ValidatorValidate(v4);
             ValidatorValidate(v5);
-            if (v1.isvalid && v2.isvalid && v3.isvalid && v4.isvalid && v5.isvalid) {
+            ValidatorValidate(v6);
+            if (v1.isvalid && v2.isvalid && v3.isvalid && v4.isvalid && v5.isvalid && v6.isvalid) {
                 $("#sec1Div").slideUp(1000);
                 $("#sec2Div").slideDown(1000);
             }
@@ -63,6 +66,19 @@
                 alert("Fill in all the questions before moving ahead");
             }
         });
+
+
+        function ValidateDemoList(source, args) {
+            var chkListModules = document.getElementById('<%= chkbxAns6.ClientID %>');
+            var chkListinputs = chkListModules.getElementsByTagName("input");
+            for (var i = 0; i < chkListinputs.length; i++) {
+                if (chkListinputs[i].checked) {
+                    args.IsValid = true;
+                    return;
+                }
+            }
+            args.IsValid = false;
+        }
     </script>
 </head>
 <body>
@@ -112,14 +128,16 @@
                 <div id="RegionalSpecific">
                     <asp:Label ID="lblQues6" runat="server" Text="" />
                     <asp:CheckBoxList ID="chkbxAns6" runat="server" ClientIDMode="Static" AutoPostBack="True" OnSelectedIndexChanged="chkbxAns6_SelectedIndexChanged1">
-                    </asp:CheckBoxList><br />
+                    </asp:CheckBoxList>
+                    <asp:CustomValidator runat="server" ID="cvDemoList" ClientValidationFunction="ValidateDemoList" ErrorMessage="* Required" ForeColor="Red"></asp:CustomValidator>
+                    <br />
 
                     <asp:Label ID="lblQues7" runat="server" Text="" />
                     <asp:CheckBoxList ID="chkbxAns7" runat="server" ClientIDMode="Static" AutoPostBack="True" OnSelectedIndexChanged="chkbxAns7_SelectedIndexChanged">
                     </asp:CheckBoxList><br />
                 </div>
 
-                <asp:Button ID="btn_section1" runat="server" Text="Next" ClientIDMode="Static" OnClientClick="return false;" />
+                <asp:Button ID="btn_section1" runat="server" Text="Next" ClientIDMode="Static" OnClientClick="return false; Validate();" />
             </div>
 
 

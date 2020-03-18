@@ -10,6 +10,8 @@
     <form id="form1" runat="server">
         <div>
             LandingPage
+            <asp:Button ID="level1" runat="server" Text="Level 1" OnClick="level1_Click"/>
+            <asp:Button ID="level2" runat="server" Text="Level 2" OnClick="level2_Click"/>
         </div>
     </form>
 </body>

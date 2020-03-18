@@ -21,12 +21,17 @@ namespace ArmourCyberSecurity
     {
 
         DAL dal = new DAL();
-        int pcq = 0, rsq = 0, rfq = 0, peq = 0, dcq = 0, cq = 0, irq = 0;
-        string pcq_cmt = string.Empty, rsq_cmt = string.Empty, rfq_cmt = string.Empty, peq_cmt = string.Empty, dcq_cmt = string.Empty, cq_cmt = string.Empty, irq_cmt = string.Empty;
+        int pcq = 0, rsq = 0, rfq = 0, peq = 0, dcq = 0, cq = 0, irq = 0, overall = 0;
+        string overall_cmt = string.Empty, pcq_cmt = string.Empty, rsq_cmt = string.Empty, rfq_cmt = string.Empty, peq_cmt = string.Empty, dcq_cmt = string.Empty, cq_cmt = string.Empty, irq_cmt = string.Empty;
 
         protected void btnHide_Click(object sender, EventArgs e)
         {
-            CreatePdf(Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
+            Session["user_mail"] = txt_EmalId.Text.ToString();
+            //string userId = "345e1db4-5433-43ca-9f7c-e43edde7ef29";
+            //dal.SaveUser(Session["user_mail"].ToString(), userId);
+            dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
+
+            CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
         }
 
        
@@ -43,6 +48,8 @@ namespace ArmourCyberSecurity
         {
             DataTable dt = new DataTable();
             dt = GetReport();
+
+            int counter1 = 0, counter2 = 0;
             foreach (DataRow row in dt.Rows)
             {
                 if (row["question_type"].ToString() == "Privacy Culture Questions")
@@ -58,6 +65,7 @@ namespace ArmourCyberSecurity
                     if (row["answer_wt"].ToString() != "-1")
                     {
                         rsq = rsq + Convert.ToInt32(row["answer_wt"]);
+                        counter1++;
                     }
                 }
                 else
@@ -66,7 +74,9 @@ namespace ArmourCyberSecurity
                     if (row["answer_wt"].ToString() != "-1")
                     {
                         rfq = rfq + Convert.ToInt32(row["answer_wt"]);
+                        counter2++;
                     }
+                    
                 }
                 else
                 if (row["question_type"].ToString() == "Privacy Engineering")
@@ -82,6 +92,12 @@ namespace ArmourCyberSecurity
                     if (row["answer_wt"].ToString() != "-1")
                     {
                         dcq = dcq + Convert.ToInt32(row["answer_wt"]);
+                    }
+                    else
+                    {
+                        DAL dalobj = new DAL();
+                        int dc_ans23 = dalobj.GetQues23Wt();
+                        dcq = dcq + dc_ans23;
                     }
                 }
                 else
@@ -103,179 +119,207 @@ namespace ArmourCyberSecurity
                 }
             }
 
+            rsq = Convert.ToInt32(rsq / (counter1 - 2));
+            rfq = Convert.ToInt32(rfq / counter2);
+            overall = rsq + rfq + peq + dcq + cq + irq;
+
             DataTable dt_Report = new DataTable();
             dt_Report = dal.GetReportComments();
             foreach (DataRow row in dt_Report.Rows)
             {
-                if ((row["criteria"].ToString() == "Privacy Culture Questions"))
+                if ((row["criteria"].ToString() == "Overall"))
                 {
-                    if (pcq > 6 )
+                    if (pcq < 650)
                     {
-                        pcq_cmt = row["high_cmt"].ToString();
+                        overall_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (pcq > 4 && pcq <= 6)
+                    if (pcq >= 650 && pcq <= 750)
+                    {
+                        overall_cmt = row["med_cmt"].ToString();
+                    }
+                    else
+                    if (pcq > 751)
+                    {
+                        overall_cmt = row["high_cmt"].ToString();
+                    }
+                }
+                if ((row["criteria"].ToString() == "Privacy Culture Questions"))
+                {
+                    if (pcq < 650)
+                    {
+                        pcq_cmt = row["low_cmt"].ToString();
+                    }
+                    else
+                    if (pcq >= 650 && pcq <= 750)
                     {
                         pcq_cmt = row["med_cmt"].ToString();
                     }
                     else 
-                    if (pcq <= 4)
+                    if (pcq > 751)
                     {
-                        pcq_cmt = row["low_cmt"].ToString();
+                        pcq_cmt = row["high_cmt"].ToString();
                     }
                 }
                 else
                 if (row["criteria"].ToString() == "Regional Specific Questions")
                 {
-                    if (rsq > 6)
+                    if (rsq < 650)
                     {
-                        rsq_cmt = row["high_cmt"].ToString();
+                        rsq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (rsq > 4 && rsq <= 6)
+                    if (rsq >= 650 && rsq <= 750)
                     {
                         rsq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (rsq <= 4)
+                    if (rsq > 751)
                     {
-                        rsq_cmt = row["low_cmt"].ToString();
+                        rsq_cmt = row["high_cmt"].ToString();
                     }
                 }
                 else
                 if (row["criteria"].ToString() == "Regional Fines")
                 {
-                    if (rfq > 6)
+                    if (rfq < 650)
                     {
-                        rfq_cmt = row["high_cmt"].ToString();
+                        rfq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (rfq > 4 && rfq <= 6)
+                    if (rfq >= 650 && rfq <= 750)
                     {
                         rfq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (rfq <= 4)
+                    if (rfq > 751)
                     {
-                        rfq_cmt = row["low_cmt"].ToString();
+                        rfq_cmt = row["high_cmt"].ToString();
                     }
 
                 }
                 else
                 if (row["criteria"].ToString() == "Privacy Engineering")
                 {
-                    if (peq > 6)
+                    if (peq < 650)
                     {
-                        peq_cmt = row["high_cmt"].ToString();
+                        peq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (peq > 4 && peq <= 6)
+                    if (peq >= 650 && peq <= 750)
                     {
                         peq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (peq <= 4)
+                    if (peq > 750)
                     {
-                        peq_cmt = row["low_cmt"].ToString();
+                        peq_cmt = row["high_cmt"].ToString();
                     }
                 }
                 else
                 if (row["criteria"].ToString() == "Data Control")
                 {
-                    if (dcq > 6)
+                    if (dcq < 650)
                     {
-                        dcq_cmt = row["high_cmt"].ToString();
+                        dcq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (dcq > 4 && dcq <= 6)
+                    if (dcq >= 650 && dcq <= 750)
                     {
                         dcq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (dcq <= 4)
+                    if (dcq > 750)
                     {
-                        dcq_cmt = row["low_cmt"].ToString();
+                        dcq_cmt = row["high_cmt"].ToString();
                     }
 
                 }
                 else
                 if (row["criteria"].ToString() == "Consent")
                 {
-                    if (cq > 6)
+                    if (cq < 650)
                     {
-                        cq_cmt = row["high_cmt"].ToString();
+                        cq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (cq > 4 && cq <= 6)
+                    if (cq >= 650 && cq <= 750)
                     {
                         cq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (cq <= 4)
+                    if (cq > 750)
                     {
-                        cq_cmt = row["low_cmt"].ToString();
+                        cq_cmt = row["high_cmt"].ToString();
                     }
 
                 }
                 else
                 if (row["criteria"].ToString() == "Incident Response")
                 {
-                    if (irq > 6)
+                    if (irq < 650)
                     {
-                        irq_cmt = row["high_cmt"].ToString();
+                        irq_cmt = row["low_cmt"].ToString();
                     }
                     else
-                    if (irq > 4 && irq <= 6)
+                    if (irq >= 650 && irq <= 750)
                     {
                         irq_cmt = row["med_cmt"].ToString();
                     }
                     else
-                    if (irq <= 4)
+                    if (irq > 750)
                     {
-                        irq_cmt = row["low_cmt"].ToString();
+                        irq_cmt = row["high_cmt"].ToString();
                     }
 
                 }
             }
 
+            Session["overall_cmt"] = overall_cmt;
+            Session["overall"] = overall;
+
             bullet1.Text = "\u25C9";
             comment1.Text = pcq_cmt;
             Session["pcq_cmt"] = comment1.Text;
+            lbl_pcq_score.Text = pcq.ToString();
             Session["pcq"] = pcq;
 
             bullet2.Text = "\u25C9";
             comment2.Text = rsq_cmt;
             Session["rsq_cmt"] = comment2.Text;
+            lbl_rsq_score.Text = rsq.ToString();
             Session["rsq"] = rsq;
 
-            bullet3.Text = "\u25C9";
-            comment3.Text = rfq_cmt;
-            Session["rfq_cmt"] = comment3.Text;
+            Session["rfq_cmt"] = rfq_cmt;
             Session["rfq"] = rfq;
 
             bullet4.Text = "\u25C9";
             comment4.Text = peq_cmt;
             Session["peq_cmt"] = comment4.Text;
+            lbl_peq_score.Text = peq.ToString();
             Session["peq"] = peq;
 
             bullet5.Text = "\u25C9";
             comment5.Text = dcq_cmt;
             Session["dcq_cmt"] = comment5.Text;
+            lbl_dcq_score.Text = dcq.ToString();
             Session["dcq"] = dcq;
 
             bullet6.Text = "\u25C9";
             comment6.Text = cq_cmt;
             Session["cq_cmt"] = comment6.Text;
+            lbl_cq_score.Text = cq.ToString();
             Session["cq"] = cq;
 
             bullet7.Text = "\u25C9";
             comment7.Text = irq_cmt;
             Session["irq_cmt"] = comment7.Text;
+            lbl_irq_score.Text = irq.ToString();
             Session["irq"] = irq;
 
         }
 
-        private void CreatePdf(int pcq, int rsq, int rfq, int peq, int dcq, int cq, int irq, string pcq_cmt, string rsq_cmt, string rfq_cmt, string peq_cmt, string dcq_cmt, string cq_cmt, string irq_cmt)
+        private void CreatePdf(int overall, int pcq, int rsq, int rfq, int peq, int dcq, int cq, int irq, string overall_cmt, string pcq_cmt, string rsq_cmt, string rfq_cmt, string peq_cmt, string dcq_cmt, string cq_cmt, string irq_cmt)
         {
             PdfPTable table = null;
             Phrase phrase = null;
@@ -369,6 +413,38 @@ namespace ArmourCyberSecurity
                         cell.PaddingBottom = 5f;
                         cell.PaddingTop = 5f;
                         cell.Colspan = 2;
+                        table.AddCell(cell);
+
+                        phrase = new Phrase();
+                        phrase.Add(new Chunk("Overall Score – Are you Privacy Regulation Compliant?", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        cell = new PdfPCell(phrase);
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.VerticalAlignment = Element.ALIGN_TOP;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.Colspan = 2;
+                        table.AddCell(cell);
+
+                        phrase = new Phrase();
+                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
+                        cell = new PdfPCell(phrase);
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
+                        table.AddCell(cell);
+
+                        phrase = new Phrase();
+                        phrase.Add(new Chunk(overall + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk(overall_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
+                        cell = new PdfPCell(phrase);
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         /* Introduction */
@@ -713,7 +789,7 @@ namespace ArmourCyberSecurity
                         //Response.Write(pdfDoc);
                         //Response.End();
 
-                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
+                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
                         mm.Subject = "Cyber Risk Assessment Report";
                         mm.Body = "Cyber Risk Assessment Report";
                         mm.Attachments.Add(new Attachment(new MemoryStream(bytes), "CyberRiskAssessmentReport.pdf"));
@@ -744,8 +820,8 @@ namespace ArmourCyberSecurity
 
         public DataTable GetReport()
         {
-            //string userId = Session["userId"].ToString();
-            string userId = "c35f931c-6517-4454-90ff-898d52869370";
+            string userId = Session["userId"].ToString();
+            //string userId = "345e1db4-5433-43ca-9f7c-e43edde7ef29";
             DataTable dt = new DataTable();
             dt = dal.GetUserReport(userId);
             return dt;

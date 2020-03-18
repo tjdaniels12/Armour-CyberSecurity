@@ -192,7 +192,7 @@
                     <asp:RegularExpressionValidator ID="regEmailId" runat="server" ControlToValidate="txt_EmalId" ErrorMessage="Please enter valid email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">  </asp:RegularExpressionValidator>
                     <br />
                     <asp:LinkButton ID="lnkDummyCancel" runat="server"></asp:LinkButton>
-                    <asp:Button ID="btnHide" runat="server" Text="Submit" ClientIDMode="Static" Enabled="false" OnClick="btnHide_Click"/>
+                    <asp:Button ID="btnHide" runat="server" Text="Submit" ClientIDMode="Static" Enabled="false" OnClick="btnHide_Click" />
                 </div>
             </asp:Panel>
 
@@ -233,16 +233,22 @@ Compliance is a large task, but when done properly the first time, it becomes si
                         </th>
                     </tr>
                     <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_pcq_info" runat="server" Text="As a company you are entrusted with protecting data for both your customers and your employees. Putting in place a proper privacy program ensures that you mitigate risk to customers, protect your company’s reputation, and drastically reduces fines. " />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_networkAndInfoSec" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_pcq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_pcq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 
@@ -271,16 +277,22 @@ Compliance is a large task, but when done properly the first time, it becomes si
                         </th>
                     </tr>
                     <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_rsq_info" runat="server" Text="Both your location and that of your customers determine the legally required legislations for your company. " />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="Image1" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_rsq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_rsq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 
@@ -300,43 +312,6 @@ Compliance is a large task, but when done properly the first time, it becomes si
                 </table>
             </div>
 
-            <%--Regional Fines--%>
-            <div class="boxshadow">
-                <table>
-                    <tr style="background-color: #1E4886;">
-                        <th colspan="2" style="text-align: center;">
-                            <h3 style="color: white;">Regional Fines</h3>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td style="text-align: center;">
-                                        <asp:Image ID="Image2" runat="server" ImageAlign="Middle" Width="300" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </td>
-                        <td style="width: 100%; text-align: justify;">
-                            <div class="statemenRow">
-                                <div class="divBullet">
-                                    <asp:Label ID="bullet3" runat="server" Text="" />
-                                </div>
-                                <div class="divLabel">
-                                    <asp:Label ID="comment3" runat="server" Text="" />
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
 
             <%--Privacy Engineering--%>
             <div class="boxshadow">
@@ -347,16 +322,22 @@ Compliance is a large task, but when done properly the first time, it becomes si
                         </th>
                     </tr>
                     <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_peq_info" runat="server" Text="Putting Privacy at the foundation of all of your services and products is the key to building a strong base that is regulation compliant and protects your customers/clients. A proper privacy engineering implementation includes the use of Privacy by Design principles, running of a DPIA (Data Privacy Impact Assessment), categorization of your PII (Personally identifiable information), and proper vendor management." />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="Image3" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_peq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_peq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 
@@ -385,16 +366,22 @@ Compliance is a large task, but when done properly the first time, it becomes si
                         </th>
                     </tr>
                     <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_dcq_info" runat="server" Text="Users have the right to access their data. Depending on the legislation, they may have the rights to check for accuracy, request correction, or simply review what is held. " />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="Image4" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_dcq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_dcq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 
@@ -423,16 +410,22 @@ Compliance is a large task, but when done properly the first time, it becomes si
                         </th>
                     </tr>
                     <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_cq_info" runat="server" Text="In accordance to the legislations, the privacy policy must explain to users what their rights are and how to execute on those rights. It is also important to establish a legal basis for which data is being collected. Users must have the ability to Opt in and out of having their data collected, stored, and transferred. " />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="Image5" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_cq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_cq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 
@@ -457,20 +450,26 @@ Compliance is a large task, but when done properly the first time, it becomes si
                 <table>
                     <tr style="background-color: #1E4886;">
                         <th colspan="2" style="text-align: center;">
-                            <h3 style="color: white;">Privacy Culture Questions</h3>
+                            <h3 style="color: white;">Incident Response Questions</h3>
                         </th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <asp:Label ID="lbl_irq_info" runat="server" Text="Lack of an incident response plan can cost a company upwards of $500k USD.  All privacy breaches and incidents must be assessed for risk of harm. Depending on the legislation, breaches will need to be documented, authorities contacted, and users informed. " />
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <table>
+
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="Image6" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_irq" runat="server" ImageAlign="Middle" Width="300" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="scoreAlignment" style="text-align: center;">
-                                        <%--<asp:Label ID="lblnetworkAndInfoSec" runat="server" Text="" />--%>
+                                        <asp:Label ID="lbl_irq_score" runat="server" Text="" />
                                     </td>
                                 </tr>
 

@@ -41,6 +41,23 @@ namespace ArmourCyberSecurity
             return ds.Tables[0];
         }
 
+        public void SaveUser(string emailId, string userId)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "INSERT INTO ar_sec_users(userId, userName, email_id, level1_complete, level2_complete, subscriber, premium_member) VALUES (@userId, @userName, @email_id, @level1_complete, @level2_complete, @subscriber, @premium_member);";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+            cmd.Parameters.Add(new SqlParameter("@userName", emailId));
+            cmd.Parameters.Add(new SqlParameter("@email_id", emailId));
+            cmd.Parameters.Add(new SqlParameter("@level1_complete", "1"));
+            cmd.Parameters.Add(new SqlParameter("@level2_complete", "0"));
+            cmd.Parameters.Add(new SqlParameter("@subscriber", "1"));
+            cmd.Parameters.Add(new SqlParameter("@premium_member", "0"));
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
+
         public DataTable LoadRegion()
         {
             SqlConnection cnn = new SqlConnection(connetionString);
@@ -80,6 +97,17 @@ namespace ArmourCyberSecurity
             da.Fill(ds);
             cnn.Close();
             return ds.Tables[0];
+        }
+
+        public int GetQues23Wt()
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT question_wt_yes FROM ar_sec_Feedback_Questions_level1 WHERE question_id = 23";
+            cmd = new SqlCommand(sql, cnn);
+            int answt = Convert.ToInt32(cmd.ExecuteScalar());
+            cnn.Close();
+            return answt;
         }
     }
 }
