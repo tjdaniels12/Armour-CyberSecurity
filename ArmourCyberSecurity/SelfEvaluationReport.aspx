@@ -38,9 +38,8 @@
 
         #backdrop {
             width: initial;
-            height: 400px;
             color: #FFFFFF;
-            background-color: #1E4886;
+            background-color: #0795d6;
             border-radius: 25px;
             padding: 20px;
             display: block;
@@ -60,20 +59,6 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        #scoreCircle {
-            height: 105px;
-            width: 105px;
-            background-color: #ffbd17;
-            border-radius: 50%;
-            display: inline-block;
-            color: #FFFFFF;
-            font-size: 25px;
-            font-weight: bold;
-            text-align: center;
-            padding: 5px;
-            vertical-align: middle;
         }
 
         #scoreValue {
@@ -105,15 +90,7 @@
             text-align: center;
         }
 
-        #exportButton {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            align-content: center;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            text-align: center;
-        }
+
 
         .scoreAlignment {
             font-size: 22px;
@@ -132,8 +109,8 @@
             width: 1100px;
             min-height: 300px;
             overflow-y: hidden;
-            /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
             box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.50);
+            font-size: larger;
         }
 
         .divBullet {
@@ -155,12 +132,12 @@
             display: table;
         }
 
-        @media print {
-            .no-print, .no-print * {
-                display: none !important;
-                visibility: hidden;
-            }
-        }
+          .zoom:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: transform .3s;
+  }
+
     </style>
     <script>
         $(function () {
@@ -185,7 +162,7 @@
 
             <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none">
                 <div class="header">
-                    Modal Popup
+                    Register
                 </div>
                 <div class="body">
                     <asp:TextBox ID="txt_EmalId" runat="server" placeholder="Email Address" ClientIDMode="Static"></asp:TextBox>
@@ -199,15 +176,15 @@
 
         </div>
         <div>
-            <div class="boxshadow" style="background-color: #1E4886; height: 350px;">
+            <div class="boxshadow" style="background-color: #0795d6;">
                 <table style="margin: 0 auto; text-align: center">
                     <tr>
                         <td style="text-align: center;">
-                            <asp:Image CssClass="Logo" ID="Logo" runat="server" />
+                            <asp:Image CssClass="Logo" ID="Logo" runat="server" ImageUrl="~/images/armor-logo.png" style="width: 100px;"/>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: center; color: white;">
+                        <td style="text-align: justify; margin: 2px; color: white;">
                             <h2>Global Data Privacy Regulation Compliance 
                                 Self-Assessment - Report
                             </h2>
@@ -216,7 +193,7 @@
                 </table>
 
 
-                <p style="text-align: center; color: white;">
+                <p style="text-align: justify; margin: 2px; color: white;">
                     Companies are legally required to fulfill the privacy regulations determined by the geographical location of both the company and their customers/clients. 
 Compliance is a large task, but when done properly the first time, it becomes simple to maintain. Doing due diligence helps mitigate risk to customers, protects a company’s reputation, and drastically reduces fines.
 
@@ -225,15 +202,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
             </div>
 
             <%--Privacy Culture Questions--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Privacy Culture Questions</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_pcq_info" runat="server" Text="As a company you are entrusted with protecting data for both your customers and your employees. Putting in place a proper privacy program ensures that you mitigate risk to customers, protect your company’s reputation, and drastically reduces fines. " />
                         </td>
                     </tr>
@@ -243,7 +220,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_pcq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_pcq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -269,15 +246,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
             </div>
 
             <%--Regional Specific Questions--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Regional Specific Questions</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_rsq_info" runat="server" Text="Both your location and that of your customers determine the legally required legislations for your company. " />
                         </td>
                     </tr>
@@ -287,7 +264,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_rsq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_rsq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -314,15 +291,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
 
             <%--Privacy Engineering--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Privacy Engineering</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_peq_info" runat="server" Text="Putting Privacy at the foundation of all of your services and products is the key to building a strong base that is regulation compliant and protects your customers/clients. A proper privacy engineering implementation includes the use of Privacy by Design principles, running of a DPIA (Data Privacy Impact Assessment), categorization of your PII (Personally identifiable information), and proper vendor management." />
                         </td>
                     </tr>
@@ -332,7 +309,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_peq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_peq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -358,15 +335,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
             </div>
 
             <%--Data Control--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Data Control</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_dcq_info" runat="server" Text="Users have the right to access their data. Depending on the legislation, they may have the rights to check for accuracy, request correction, or simply review what is held. " />
                         </td>
                     </tr>
@@ -376,7 +353,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_dcq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_dcq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -402,15 +379,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
             </div>
 
             <%--Consent--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Consent</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_cq_info" runat="server" Text="In accordance to the legislations, the privacy policy must explain to users what their rights are and how to execute on those rights. It is also important to establish a legal basis for which data is being collected. Users must have the ability to Opt in and out of having their data collected, stored, and transferred. " />
                         </td>
                     </tr>
@@ -420,7 +397,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_cq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_cq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -446,15 +423,15 @@ Compliance is a large task, but when done properly the first time, it becomes si
             </div>
 
             <%--Incident Response--%>
-            <div class="boxshadow">
+            <div class="boxshadow zoom">
                 <table>
-                    <tr style="background-color: #1E4886;">
+                    <tr style="background-color: #0795d6;">
                         <th colspan="2" style="text-align: center;">
                             <h3 style="color: white;">Incident Response Questions</h3>
                         </th>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td style="text-align: justify; margin: 2px;" colspan="2">
                             <asp:Label ID="lbl_irq_info" runat="server" Text="Lack of an incident response plan can cost a company upwards of $500k USD.  All privacy breaches and incidents must be assessed for risk of harm. Depending on the legislation, breaches will need to be documented, authorities contacted, and users informed. " />
                         </td>
                     </tr>
@@ -464,7 +441,7 @@ Compliance is a large task, but when done properly the first time, it becomes si
 
                                 <tr>
                                     <td style="text-align: center;">
-                                        <asp:Image ID="img_irq" runat="server" ImageAlign="Middle" Width="300" />
+                                        <asp:Image ID="img_irq" runat="server" ImageAlign="Middle" style="width: 200px;border-radius: 50%;"/>
                                     </td>
                                 </tr>
                                 <tr>

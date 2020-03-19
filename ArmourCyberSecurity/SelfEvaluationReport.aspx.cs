@@ -27,14 +27,11 @@ namespace ArmourCyberSecurity
         protected void btnHide_Click(object sender, EventArgs e)
         {
             Session["user_mail"] = txt_EmalId.Text.ToString();
-            //string userId = "345e1db4-5433-43ca-9f7c-e43edde7ef29";
-            //dal.SaveUser(Session["user_mail"].ToString(), userId);
             dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
-
             CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
         }
 
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -76,7 +73,7 @@ namespace ArmourCyberSecurity
                         rfq = rfq + Convert.ToInt32(row["answer_wt"]);
                         counter2++;
                     }
-                    
+
                 }
                 else
                 if (row["question_type"].ToString() == "Privacy Engineering")
@@ -149,16 +146,19 @@ namespace ArmourCyberSecurity
                     if (pcq < 650)
                     {
                         pcq_cmt = row["low_cmt"].ToString();
+                        img_pcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (pcq >= 650 && pcq <= 750)
                     {
                         pcq_cmt = row["med_cmt"].ToString();
+                        img_pcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
-                    else 
+                    else
                     if (pcq > 751)
                     {
                         pcq_cmt = row["high_cmt"].ToString();
+                        img_pcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
                 }
                 else
@@ -167,16 +167,19 @@ namespace ArmourCyberSecurity
                     if (rsq < 650)
                     {
                         rsq_cmt = row["low_cmt"].ToString();
+                        img_rsq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (rsq >= 650 && rsq <= 750)
                     {
                         rsq_cmt = row["med_cmt"].ToString();
+                        img_rsq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
                     else
                     if (rsq > 751)
                     {
                         rsq_cmt = row["high_cmt"].ToString();
+                        img_rsq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
                 }
                 else
@@ -204,16 +207,19 @@ namespace ArmourCyberSecurity
                     if (peq < 650)
                     {
                         peq_cmt = row["low_cmt"].ToString();
+                        img_peq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (peq >= 650 && peq <= 750)
                     {
                         peq_cmt = row["med_cmt"].ToString();
+                        img_peq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
                     else
                     if (peq > 750)
                     {
                         peq_cmt = row["high_cmt"].ToString();
+                        img_peq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
                 }
                 else
@@ -222,16 +228,19 @@ namespace ArmourCyberSecurity
                     if (dcq < 650)
                     {
                         dcq_cmt = row["low_cmt"].ToString();
+                        img_dcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (dcq >= 650 && dcq <= 750)
                     {
                         dcq_cmt = row["med_cmt"].ToString();
+                        img_dcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
                     else
                     if (dcq > 750)
                     {
                         dcq_cmt = row["high_cmt"].ToString();
+                        img_dcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
 
                 }
@@ -241,16 +250,19 @@ namespace ArmourCyberSecurity
                     if (cq < 650)
                     {
                         cq_cmt = row["low_cmt"].ToString();
+                        img_cq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (cq >= 650 && cq <= 750)
                     {
                         cq_cmt = row["med_cmt"].ToString();
+                        img_cq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
                     else
                     if (cq > 750)
                     {
                         cq_cmt = row["high_cmt"].ToString();
+                        img_cq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
 
                 }
@@ -260,16 +272,19 @@ namespace ArmourCyberSecurity
                     if (irq < 650)
                     {
                         irq_cmt = row["low_cmt"].ToString();
+                        img_irq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
                     }
                     else
                     if (irq >= 650 && irq <= 750)
                     {
                         irq_cmt = row["med_cmt"].ToString();
+                        img_irq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
                     }
                     else
                     if (irq > 750)
                     {
                         irq_cmt = row["high_cmt"].ToString();
+                        img_irq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
                     }
 
                 }
@@ -330,12 +345,12 @@ namespace ArmourCyberSecurity
             {
                 using (HtmlTextWriter hw = new HtmlTextWriter(sw))
                 {
-                   
+
                     StringReader sr = new StringReader(sw.ToString());
                     Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
                     using (MemoryStream memoryStream = new MemoryStream())
                     {
-                        
+
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
                         pdfDoc.Open();
 
@@ -383,7 +398,7 @@ namespace ArmourCyberSecurity
                         DrawLine(writer, 25f, pdfDoc.Top - 80f, pdfDoc.PageSize.Width - 25f, pdfDoc.Top - 80f, color);
 
                         pdfDoc.Add(table);
-    
+
                         table = new PdfPTable(2);
                         //table.TotalWidth = 2000f;
                         table.WidthPercentage = 95f;
@@ -426,18 +441,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image overall_img;
+                        if (overall < 650)
+                        {
+                            overall_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            overall_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(overall_img);
+                        }
+                        else
+                        if (overall >= 650 && overall <= 750)
+                        {
+                            overall_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            overall_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(overall_img);
+                        }
+                        else
+                        if (overall > 751)
+                        {
+                            overall_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            overall_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(overall_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(overall + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + overall + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(overall_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -472,18 +506,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image pcq_img;
+                        if (pcq < 650)
+                        {
+                            pcq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            pcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(pcq_img);
+                        }
+                        else
+                        if (pcq >= 650 && pcq <= 750)
+                        {
+                            pcq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            pcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(pcq_img);
+                        }
+                        else
+                        if (pcq > 751)
+                        {
+                            pcq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            pcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(pcq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(pcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + pcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(pcq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -517,18 +570,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image rsq_img;
+                        if (rsq < 650)
+                        {
+                            rsq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            rsq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(rsq_img);
+                        }
+                        else
+                        if (rsq >= 650 && rsq <= 750)
+                        {
+                            rsq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            rsq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(rsq_img);
+                        }
+                        else
+                        if (rsq > 751)
+                        {
+                            rsq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            rsq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(rsq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(rsq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + rsq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(rsq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -537,7 +609,7 @@ namespace ArmourCyberSecurity
                         cell.PaddingBottom = 5f;
                         cell.PaddingTop = 5f;
                         table.AddCell(cell);
-                        /* Regional Specific Questions */                       
+                        /* Regional Specific Questions */
 
                         /* Privacy Engineering */
                         phrase = new Phrase();
@@ -562,18 +634,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image peq_img;
+                        if (peq < 650)
+                        {
+                            peq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            peq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(peq_img);
+                        }
+                        else
+                        if (peq >= 650 && peq <= 750)
+                        {
+                            peq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            peq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(peq_img);
+                        }
+                        else
+                        if (peq > 751)
+                        {
+                            peq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            peq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(peq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(peq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + peq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(peq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -653,18 +744,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image dcq_img;
+                        if (dcq < 650)
+                        {
+                            dcq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            dcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(dcq_img);
+                        }
+                        else
+                        if (dcq >= 650 && dcq <= 750)
+                        {
+                            dcq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            dcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(dcq_img);
+                        }
+                        else
+                        if (dcq > 751)
+                        {
+                            dcq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            dcq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(dcq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(dcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + dcq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(dcq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -698,18 +808,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image cq_img;
+                        if (cq < 650)
+                        {
+                            cq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            cq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(cq_img);
+                        }
+                        else
+                        if (cq >= 650 && cq <= 750)
+                        {
+                            cq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            cq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(cq_img);
+                        }
+                        else
+                        if (cq > 751)
+                        {
+                            cq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            cq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(cq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(cq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + cq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(cq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -743,18 +872,37 @@ namespace ArmourCyberSecurity
                         cell.Colspan = 2;
                         table.AddCell(cell);
 
-                        phrase = new Phrase();
-                        phrase.Add(new Chunk("Your Risk Score : " + "\n", FontFactory.GetFont("Arial", 12, Font.BOLDITALIC, BaseColor.BLACK)));
-                        cell = new PdfPCell(phrase);
-                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        Image irq_img;
+                        if (irq < 650)
+                        {
+                            irq_img = Image.GetInstance(imagepath + "/red_circle.png");
+                            irq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(irq_img);
+                        }
+                        else
+                        if (irq >= 650 && irq <= 750)
+                        {
+                            irq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
+                            irq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(irq_img);
+                        }
+                        else
+                        if (irq > 751)
+                        {
+                            irq_img = Image.GetInstance(imagepath + "/green_circle.png");
+                            irq_img.ScaleAbsolute(75f, 75f);
+                            cell = new PdfPCell(irq_img);
+                        }
+                        cell.BorderColor = BaseColor.WHITE;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
+                        cell.PaddingBottom = 0f;
+                        cell.PaddingTop = 0f;
                         cell.Border = PdfPCell.NO_BORDER;
-                        cell.PaddingBottom = 5f;
-                        cell.PaddingTop = 5f;
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk(irq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Your Risk Score is : " + irq + "\n", FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK)));
                         phrase.Add(new Chunk(irq_cmt + "\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
@@ -789,6 +937,7 @@ namespace ArmourCyberSecurity
                         //Response.Write(pdfDoc);
                         //Response.End();
 
+                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
                         MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
                         mm.Subject = "Cyber Risk Assessment Report";
                         mm.Body = "Cyber Risk Assessment Report";
@@ -821,7 +970,7 @@ namespace ArmourCyberSecurity
         public DataTable GetReport()
         {
             string userId = Session["userId"].ToString();
-            //string userId = "345e1db4-5433-43ca-9f7c-e43edde7ef29";
+            //string userId = "63ae025c-7c22-46d7-ae3e-e4594960e728";
             DataTable dt = new DataTable();
             dt = dal.GetUserReport(userId);
             return dt;
@@ -829,4 +978,3 @@ namespace ArmourCyberSecurity
 
     }
 }
- 

@@ -135,6 +135,12 @@
     <Content Include="images\armor-logo.png" />
     <Content Include="images\Binary-Tattoo.jpg" />
     <Content Include="images\Binary-Tattoo.png" />
+    <Content Include="images\green.PNG" />
+    <Content Include="images\green_circle.png" />
+    <Content Include="images\red.PNG" />
+    <Content Include="images\red_circle.png" />
+    <Content Include="images\yellow.PNG" />
+    <Content Include="images\yellow_circle.png" />
     <Content Include="LandingPage.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
