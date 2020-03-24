@@ -22,7 +22,7 @@
             var v4 = document.getElementById("<%=reqAns4.ClientID%>");
             var v5 = document.getElementById("<%=reqAns5.ClientID%>");
             var v6 = document.getElementById("<%=cvDemoList.ClientID%>");
-            
+
             ValidatorValidate(v1);
             ValidatorValidate(v2);
             ValidatorValidate(v3);
@@ -70,6 +70,18 @@
 
         function ValidateDemoList(source, args) {
             var chkListModules = document.getElementById('<%= chkbxAns6.ClientID %>');
+            var chkListinputs = chkListModules.getElementsByTagName("input");
+            for (var i = 0; i < chkListinputs.length; i++) {
+                if (chkListinputs[i].checked) {
+                    args.IsValid = true;
+                    return;
+                }
+            }
+            args.IsValid = false;
+        }
+
+        function ValidateDemoList2(source, args) {
+            var chkListModules = document.getElementById('<%= chkbxAns7.ClientID %>');
             var chkListinputs = chkListModules.getElementsByTagName("input");
             for (var i = 0; i < chkListinputs.length; i++) {
                 if (chkListinputs[i].checked) {
@@ -134,7 +146,9 @@
 
                     <asp:Label ID="lblQues7" runat="server" Text="" />
                     <asp:CheckBoxList ID="chkbxAns7" runat="server" ClientIDMode="Static" AutoPostBack="True" OnSelectedIndexChanged="chkbxAns7_SelectedIndexChanged">
-                    </asp:CheckBoxList><br />
+                    </asp:CheckBoxList>
+                    <asp:CustomValidator runat="server" ID="cvDemoList2" ClientValidationFunction="ValidateDemoList2" ErrorMessage="* Required" ForeColor="Red"></asp:CustomValidator>
+                    <br />
                 </div>
 
                 <asp:Button ID="btn_section1" runat="server" Text="Next" ClientIDMode="Static" OnClientClick="return false; Validate();" />

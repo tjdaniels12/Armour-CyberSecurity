@@ -26,8 +26,8 @@ namespace ArmourCyberSecurity
 
         protected void btnHide_Click(object sender, EventArgs e)
         {
-            Session["user_mail"] = txt_EmalId.Text.ToString();
-            dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
+            //Session["user_mail"] = txt_EmalId.Text.ToString();
+            //dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
             CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
         }
 
@@ -352,6 +352,7 @@ namespace ArmourCyberSecurity
                     {
 
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
+                        writer.PageEvent = new PDFFooter();
                         pdfDoc.Open();
 
                         //Watermark
@@ -381,7 +382,7 @@ namespace ArmourCyberSecurity
 
                         //Armor Address
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.RED)));
+                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 18, Font.BOLD, new BaseColor(7, 149, 214))));
                         phrase.Add(new Chunk("77 Bloor St West,\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("Suite 600, Toronto\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("ON M5S 1M2", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
@@ -695,7 +696,7 @@ namespace ArmourCyberSecurity
 
                         //Armor Address
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.RED)));
+                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, new BaseColor(7, 149, 214))));
                         phrase.Add(new Chunk("77 Bloor St West,\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("Suite 600, Toronto\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("ON M5S 1M2", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
@@ -913,6 +914,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
                         /* Incident Response */
 
+                        /* Call for action */
+                        phrase = new Phrase();
+                        phrase.Add(new Chunk("To best protect your clients, your company and your reputation, you should be confident with your results. We are here to help. For more information contact us at ", FontFactory.GetFont("Arial", 12, Font.ITALIC, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("privacy@armourcyber.ca ", FontFactory.GetFont("Arial", 12, Font.UNDERLINE, new BaseColor(0, 0, 238))));
+                        phrase.Add(new Chunk("to discuss your custom roadmap and solution.", FontFactory.GetFont("Arial", 12, Font.ITALIC, BaseColor.BLACK)));
+                        cell = new PdfPCell(phrase);
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.VerticalAlignment = Element.ALIGN_TOP;
+                        cell.PaddingBottom = 5f;
+                        cell.PaddingTop = 50f;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.Colspan = 2;
+                        table.AddCell(cell);
+                        /* Call for action */
+
                         pdfDoc.Add(table);
 
                         //Adding watermark to all pages
@@ -937,10 +953,10 @@ namespace ArmourCyberSecurity
                         //Response.Write(pdfDoc);
                         //Response.End();
 
-                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
-                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
-                        mm.Subject = "Cyber Risk Assessment Report";
-                        mm.Body = "Cyber Risk Assessment Report";
+                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
+                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
+                        mm.Subject = "Your Company's Privacy Compliance Report";
+                        mm.Body = "Hello,\r\n You or a member of your team filled out our level 1 assessment questionnaire to determine your preparedness for Global Data Privacy Regulations such as GDPR, PIPEDA, LGPD etc. Companies are legally required to fulfill the privacy regulations determined by the geographical location of both the company and their customers/clients.Compliance is a large task, but when done properly the first time, it becomes simple to maintain. Doing due diligence helps mitigate risk to customers, protects a company’s reputation, and drastically reduces fines.\r\n \r\nAttached you will find your company's personalized Privacy Compliance Report.Take time to review your result and then reach out with any questions or concerns you may have.o best protect your clients, your company and your reputation, you should be confident with your results. We are here to help. For more information contact us at Contact privacy@armourcyber.ca to discuss your custom roadmap and solution.\r\n \r\n Cat Coode, Senior Privacy Consultant \r\n Privacy Compliance Group \r\n Powered by Armour Cybersecurity 2020";
                         mm.Attachments.Add(new Attachment(new MemoryStream(bytes), "CyberRiskAssessmentReport.pdf"));
                         mm.IsBodyHtml = true;
                         SmtpClient smtp = new SmtpClient();
@@ -969,12 +985,46 @@ namespace ArmourCyberSecurity
 
         public DataTable GetReport()
         {
-            string userId = Session["userId"].ToString();
-            //string userId = "63ae025c-7c22-46d7-ae3e-e4594960e728";
+            //string userId = Session["userId"].ToString();
+            string userId = "63ae025c-7c22-46d7-ae3e-e4594960e728";
             DataTable dt = new DataTable();
             dt = dal.GetUserReport(userId);
             return dt;
         }
 
     }
+    public class PDFFooter : PdfPageEventHelper
+    {
+        // write on top of document
+        public override void OnOpenDocument(PdfWriter writer, Document document)
+        {
+            base.OnOpenDocument(writer, document);
+        }
+
+        // write on start of each page
+        public override void OnStartPage(PdfWriter writer, Document document)
+        {
+            base.OnStartPage(writer, document);
+        }
+        // write on end of each page
+        public override void OnEndPage(PdfWriter writer, Document document)
+        {
+            base.OnEndPage(writer, document);
+            PdfPTable tabFot = new PdfPTable(1);
+            PdfPCell cell;
+            tabFot.TotalWidth = 500F;
+            Phrase phrase = new Phrase();
+            phrase.Add(new Chunk("Armor CyberSecurity", FontFactory.GetFont("Arial", 18, Font.BOLD, new BaseColor(7, 149, 214))));
+            cell = new PdfPCell(phrase);
+            tabFot.AddCell(cell);
+            tabFot.WriteSelectedRows(0, -1, 150, document.Bottom, writer.DirectContent);
+        }
+
+        //write on close of document
+        public override void OnCloseDocument(PdfWriter writer, Document document)
+        {
+            base.OnCloseDocument(writer, document);
+        }
+    }
+
 }

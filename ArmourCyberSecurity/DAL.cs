@@ -27,6 +27,35 @@ namespace ArmourCyberSecurity
             return ds.Tables[0];
         }
 
+        public DataTable LoadSectionState(int section, string userId)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT question_id, question_type, ans_Text, answer_wt FROM ar_sec_User_Feedback_Collection_Level2 WHERE stagesCompleted = @stagesCompleted AND userid = @userid";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@stagesCompleted", section));
+            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            cnn.Close();
+            return ds.Tables[0];
+        }
+
+        public DataTable LoadLevel2Questions()
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT question_id, question, question_type, ctrl_type, question_wt_yes, question_wt_no, question_wt_somewhat, question_wt_unsure FROM [ar_sec_Feedback_Questions_level2]";
+            //string sql = "SELECT question_id, question, question_type, ctrl_type, question_wt_yes, question_wt_no, question_wt_somewhat, question_wt_unsure FROM [ar_sec_Feedback_Questions_level2]";
+            cmd = new SqlCommand(sql, cnn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            cnn.Close();
+            return ds.Tables[0];
+        }
+
         public DataTable GetUserReport(string userId)
         {
             SqlConnection cnn = new SqlConnection(connetionString);
@@ -82,6 +111,55 @@ namespace ArmourCyberSecurity
             cmd.Parameters.Add(new SqlParameter("@quesType", quesType));
             cmd.Parameters.Add(new SqlParameter("@ansWt", ansWt));
             cmd.Parameters.Add(new SqlParameter("@ansText", ansText));
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
+
+        public int CheckAllSections(string userId)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT DISTINCT COUNT(stagesCompleted) FROM ar_sec_User_Feedback_Collection_Level2 WHERE userid = @userid";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userid", userId));
+            int noOfSec = Convert.ToInt32(cmd.ExecuteScalar());
+            cnn.Close();
+            return noOfSec;
+        }
+
+        public void SaveLevel2Answers(string userId, int quesId, string quesType, string ansWt, string ansText, int stagesCompleted)
+        {
+            string sql = string.Empty;
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            sql = "SELECT DISTINCT COUNT(*) FROM ar_sec_User_Feedback_Collection_Level2 WHERE userid = @userId AND question_id = @quesId;";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userId", userId));
+            cmd.Parameters.Add(new SqlParameter("@quesId", quesId));
+            int AnsExists = Convert.ToInt32(cmd.ExecuteScalar());
+
+            if (AnsExists > 0)
+            {
+                sql = "UPDATE ar_sec_User_Feedback_Collection_Level2 SET userid = @userId, question_id = @quesId, question_type = @quesType, answer_wt = @ansWt, ans_Text = @ansText, stagesCompleted = @stagesCompleted WHERE userid = @userId AND question_id = @quesId;";
+                cmd = new SqlCommand(sql, cnn);
+                cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                cmd.Parameters.Add(new SqlParameter("@quesId", quesId));
+                cmd.Parameters.Add(new SqlParameter("@quesType", quesType));
+                cmd.Parameters.Add(new SqlParameter("@ansWt", ansWt));
+                cmd.Parameters.Add(new SqlParameter("@ansText", ansText));
+                cmd.Parameters.Add(new SqlParameter("@stagesCompleted", stagesCompleted));
+            }
+            else
+            {
+                sql = "INSERT INTO ar_sec_User_Feedback_Collection_Level2(userid, question_id, question_type, answer_wt, ans_Text, stagesCompleted) VALUES (@userId, @quesId, @quesType, @ansWt, @ansText, @stagesCompleted);";
+                cmd = new SqlCommand(sql, cnn);
+                cmd.Parameters.Add(new SqlParameter("@userId", userId));
+                cmd.Parameters.Add(new SqlParameter("@quesId", quesId));
+                cmd.Parameters.Add(new SqlParameter("@quesType", quesType));
+                cmd.Parameters.Add(new SqlParameter("@ansWt", ansWt));
+                cmd.Parameters.Add(new SqlParameter("@ansText", ansText));
+                cmd.Parameters.Add(new SqlParameter("@stagesCompleted", stagesCompleted));
+            }
             cmd.ExecuteNonQuery();
             cnn.Close();
         }
