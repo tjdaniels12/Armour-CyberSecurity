@@ -355,26 +355,38 @@ namespace ArmourCyberSecurity
                         writer.PageEvent = new PDFFooter();
                         pdfDoc.Open();
 
+                        //Add border to page
+                        PdfContentByte content = writer.DirectContent;
+                        Rectangle rectangle = new Rectangle(pdfDoc.PageSize);
+                        rectangle.Left += pdfDoc.LeftMargin;
+                        rectangle.Right -= pdfDoc.RightMargin;
+                        rectangle.Top -= pdfDoc.TopMargin;
+                        rectangle.Bottom += pdfDoc.BottomMargin + 10;
+                        content.SetColorStroke(BaseColor.BLACK);
+                        content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
+                        content.Stroke();
+
                         //Watermark
                         string bgimagepath = Server.MapPath("images");
-                        Image bgimg = Image.GetInstance(bgimagepath + "/Binary-Tattoo.jpg");
+                        Image bgimg = Image.GetInstance(bgimagepath + "/newLogo-watermark.png");
                         bgimg.ScaleToFit(1000, 500);
                         bgimg.Alignment = Image.UNDERLYING;
-                        bgimg.SetAbsolutePosition(60, 200);
+                        bgimg.SetAbsolutePosition((PageSize.A4.Width - bgimg.ScaledWidth) / 2, (PageSize.A4.Height - bgimg.ScaledHeight) / 2);
                         pdfDoc.Add(bgimg);
 
                         table = new PdfPTable(2);
                         table.TotalWidth = 500f;
                         table.LockedWidth = true;
                         table.SetWidths(new float[] { 0.3f, 0.7f });
+                        table.DefaultCell.Border = Rectangle.NO_BORDER;
 
                         //Armor Logo
                         string imagepath = Server.MapPath("images");
-                        Image img = Image.GetInstance(imagepath + "/armor-logo.png");
-                        img.ScalePercent(30f);
+                        Image img = Image.GetInstance(imagepath + "/newLogo.png");
+                        img.ScaleAbsolute(50, 61);
                         cell = new PdfPCell(img);
-                        cell.BorderColor = BaseColor.WHITE;
-                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.PaddingBottom = 0f;
                         cell.PaddingTop = 0f;
@@ -389,7 +401,7 @@ namespace ArmourCyberSecurity
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
-                        cell.BorderColor = BaseColor.WHITE;
+                        cell.Border = PdfPCell.NO_BORDER;
                         cell.PaddingBottom = 2f;
                         cell.PaddingTop = 0f;
                         table.AddCell(cell);
@@ -402,7 +414,7 @@ namespace ArmourCyberSecurity
 
                         table = new PdfPTable(2);
                         //table.TotalWidth = 2000f;
-                        table.WidthPercentage = 95f;
+                        table.WidthPercentage = 90f;
                         table.HorizontalAlignment = Element.ALIGN_CENTER;
                         table.SetWidths(new float[] { 2f, 8f });
                         table.SpacingBefore = 20f;
@@ -432,7 +444,7 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Overall Score – Are you Privacy Regulation Compliant?", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Overall Score – Are you Privacy Regulation Compliant?", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -486,7 +498,7 @@ namespace ArmourCyberSecurity
 
                         /* Privacy Culture */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Privacy Culture", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Privacy Culture", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -550,7 +562,7 @@ namespace ArmourCyberSecurity
 
                         /* Regional Specific Questions */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Regional Specific Questions", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Regional Specific Questions", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -614,7 +626,7 @@ namespace ArmourCyberSecurity
 
                         /* Privacy Engineering */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Privacy Engineering", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Privacy Engineering", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -677,18 +689,38 @@ namespace ArmourCyberSecurity
                         /* Privacy Engineering */
 
                         pdfDoc.Add(table);
+
+
+                        /* ########################################SECOND PAGE######################################## */
                         pdfDoc.NewPage();
+
+                        //Add border to page
+                        rectangle.Left += pdfDoc.LeftMargin - 10;
+                        rectangle.Right -= pdfDoc.RightMargin - 10;
+                        rectangle.Top -= pdfDoc.TopMargin - 10;
+                        rectangle.Bottom += pdfDoc.BottomMargin;
+                        content.SetColorStroke(BaseColor.BLACK);
+                        content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
+                        content.Stroke();
+
+                        string bgimagepath2 = Server.MapPath("images");
+                        Image bgimg2 = Image.GetInstance(bgimagepath2 + "/newLogo-watermark.png");
+                        bgimg2.ScaleToFit(1000, 500);
+                        bgimg2.Alignment = Image.UNDERLYING;
+                        bgimg2.SetAbsolutePosition((PageSize.A4.Width - bgimg.ScaledWidth) / 2, (PageSize.A4.Height - bgimg.ScaledHeight) / 2);
+                        pdfDoc.Add(bgimg2);
 
                         table = new PdfPTable(2);
                         table.TotalWidth = 500f;
                         table.LockedWidth = true;
                         table.SetWidths(new float[] { 0.3f, 0.7f });
+                        table.DefaultCell.Border = Rectangle.NO_BORDER;
 
                         //Armor Logo
-                        img.ScalePercent(30f);
+                        img.ScaleAbsolute(50, 61);
                         cell = new PdfPCell(img);
-                        cell.BorderColor = BaseColor.WHITE;
-                        cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
+                        cell.Border = PdfPCell.NO_BORDER;
+                        cell.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.PaddingBottom = 0f;
                         cell.PaddingTop = 0f;
@@ -696,14 +728,14 @@ namespace ArmourCyberSecurity
 
                         //Armor Address
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, new BaseColor(7, 149, 214))));
+                        phrase.Add(new Chunk("Armor CyberSecurity\n\n", FontFactory.GetFont("Arial", 18, Font.BOLD, new BaseColor(7, 149, 214))));
                         phrase.Add(new Chunk("77 Bloor St West,\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("Suite 600, Toronto\n", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         phrase.Add(new Chunk("ON M5S 1M2", FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
                         cell.VerticalAlignment = PdfPCell.ALIGN_TOP;
-                        cell.BorderColor = BaseColor.WHITE;
+                        cell.Border = PdfPCell.NO_BORDER;
                         cell.PaddingBottom = 2f;
                         cell.PaddingTop = 0f;
                         table.AddCell(cell);
@@ -715,8 +747,7 @@ namespace ArmourCyberSecurity
                         pdfDoc.Add(table);
 
                         table = new PdfPTable(2);
-                        //table.TotalWidth = 2000f;
-                        table.WidthPercentage = 95f;
+                        table.WidthPercentage = 90f;
                         table.HorizontalAlignment = Element.ALIGN_CENTER;
                         table.SetWidths(new float[] { 2f, 8f });
                         table.SpacingBefore = 20f;
@@ -724,7 +755,7 @@ namespace ArmourCyberSecurity
 
                         /* Data Control */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Data Control", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Data Control", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -788,7 +819,7 @@ namespace ArmourCyberSecurity
 
                         /* Consent */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Consent", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Consent", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -852,7 +883,7 @@ namespace ArmourCyberSecurity
 
                         /* Incident Response */
                         phrase = new Phrase();
-                        phrase.Add(new Chunk("Incident Response", FontFactory.GetFont("Arial", 16, Font.BOLD, BaseColor.BLACK)));
+                        phrase.Add(new Chunk("Incident Response", FontFactory.GetFont("Arial", 16, Font.BOLD | Font.UNDERLINE, BaseColor.BLACK)));
                         cell = new PdfPCell(phrase);
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_TOP;
@@ -931,18 +962,6 @@ namespace ArmourCyberSecurity
 
                         pdfDoc.Add(table);
 
-                        //Adding watermark to all pages
-                        int pn = writer.PageNumber;
-                        for (int i = 1; i <= pn; i++)
-                        {
-                            string bgimagepath2 = Server.MapPath("images");
-                            Image bgimg2 = Image.GetInstance(bgimagepath2 + "/Binary-Tattoo.jpg");
-                            bgimg2.ScaleToFit(1000, 500);
-                            bgimg2.Alignment = Image.UNDERLYING;
-                            bgimg2.SetAbsolutePosition(60, 200);
-                            pdfDoc.Add(bgimg2);
-                        }
-
                         XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
                         pdfDoc.Close();
                         byte[] bytes = memoryStream.ToArray();
@@ -953,10 +972,19 @@ namespace ArmourCyberSecurity
                         //Response.Write(pdfDoc);
                         //Response.End();
 
+                        string email_body = "Hello,<br /><br />" + Environment.NewLine;
+                        email_body = email_body + "You or a member of your team filled out our level 1 assessment questionnaire to determine your preparedness for Global Data Privacy Regulations such as GDPR, PIPEDA, LGPD etc. Companies are legally required to fulfill the privacy regulations determined by the geographical location of both the company and their customers/clients.Compliance is a large task, but when done properly the first time, it becomes simple to maintain. Doing due diligence helps mitigate risk to customers, protects a company’s reputation, and drastically reduces fines.<br /><br />" + Environment.NewLine;
+                        email_body = email_body + "Attached you will find your company's personalized Privacy Compliance Report.Take time to review your result and then reach out with any questions or concerns you may have.To best protect your clients, your company and your reputation, you should be confident with your results. We are here to help.<br /><br />" + Environment.NewLine;
+                        email_body = email_body + "For more information contact us at Contact privacy@armourcyber.ca to discuss your custom roadmap and solution.<br /><br />" + Environment.NewLine;
+                        email_body = email_body + "Cat Coode, Senior Privacy Consultant<br />" + Environment.NewLine;
+                        email_body = email_body + "Privacy Compliance Group<br />" + Environment.NewLine;
+                        email_body = email_body + "Powered by Armour Cybersecurity 2020<br />" + Environment.NewLine;
+
+
                         MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
                         //MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
                         mm.Subject = "Your Company's Privacy Compliance Report";
-                        mm.Body = "Hello,\r\n You or a member of your team filled out our level 1 assessment questionnaire to determine your preparedness for Global Data Privacy Regulations such as GDPR, PIPEDA, LGPD etc. Companies are legally required to fulfill the privacy regulations determined by the geographical location of both the company and their customers/clients.Compliance is a large task, but when done properly the first time, it becomes simple to maintain. Doing due diligence helps mitigate risk to customers, protects a company’s reputation, and drastically reduces fines.\r\n \r\nAttached you will find your company's personalized Privacy Compliance Report.Take time to review your result and then reach out with any questions or concerns you may have.o best protect your clients, your company and your reputation, you should be confident with your results. We are here to help. For more information contact us at Contact privacy@armourcyber.ca to discuss your custom roadmap and solution.\r\n \r\n Cat Coode, Senior Privacy Consultant \r\n Privacy Compliance Group \r\n Powered by Armour Cybersecurity 2020";
+                        mm.Body = email_body;
                         mm.Attachments.Add(new Attachment(new MemoryStream(bytes), "CyberRiskAssessmentReport.pdf"));
                         mm.IsBodyHtml = true;
                         SmtpClient smtp = new SmtpClient();
@@ -964,7 +992,7 @@ namespace ArmourCyberSecurity
                         smtp.EnableSsl = true;
                         NetworkCredential NetworkCred = new NetworkCredential();
                         NetworkCred.UserName = "roshandeep810@gmail.com";
-                        NetworkCred.Password = "roshandeep2895";
+                        NetworkCred.Password = "Simran@3395";
                         smtp.UseDefaultCredentials = true;
                         smtp.Credentials = NetworkCred;
                         smtp.Port = 587;

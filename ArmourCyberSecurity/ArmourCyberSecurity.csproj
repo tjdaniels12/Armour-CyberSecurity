@@ -137,6 +137,8 @@
     <Content Include="images\Binary-Tattoo.png" />
     <Content Include="images\green.PNG" />
     <Content Include="images\green_circle.png" />
+    <Content Include="images\newLogo-watermark.png" />
+    <Content Include="images\newLogo.png" />
     <Content Include="images\red.PNG" />
     <Content Include="images\red_circle.png" />
     <Content Include="images\yellow.PNG" />
