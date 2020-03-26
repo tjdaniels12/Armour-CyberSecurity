@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SelfEvaluation.aspx.cs" Inherits="ArmourCyberSecurity.SelfEvaluation" %>
+﻿<%--<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SelfEvaluation.aspx.cs" Inherits="ArmourCyberSecurity.SelfEvaluation" %>
 
 <!DOCTYPE html>
 
@@ -163,7 +163,7 @@
             </asp:Table>
 
             <asp:Table ID="tbl_EmpTraining" runat="server">
-            </asp:Table>--%>
+            </asp:Table>
 
             <div id="PrivacyCulture">
                 <asp:Label ID="lblQues1" runat="server" Text="" />
@@ -334,4 +334,4 @@
         </div>
     </form>
 </body>
-</html>
+</html>--%>
