@@ -364,7 +364,7 @@
                 </div>
 
 
-                <asp:Button ID="btn_Submit" runat="server" Text="Button" OnClick="btn_Submit_Click" />
+                <asp:Button ID="btn_Submit" runat="server" Text="Finish" OnClick="btn_Submit_Click" />
             </div>
 
 

@@ -24,11 +24,19 @@ namespace ArmourCyberSecurity
         int pcq = 0, rsq = 0, rfq = 0, peq = 0, dcq = 0, cq = 0, irq = 0, overall = 0;
         string overall_cmt = string.Empty, pcq_cmt = string.Empty, rsq_cmt = string.Empty, rfq_cmt = string.Empty, peq_cmt = string.Empty, dcq_cmt = string.Empty, cq_cmt = string.Empty, irq_cmt = string.Empty;
 
+        int pcq_high = 0, pcq_med = 0, pcq_low = 0;
+        int rsq_high = 0, rsq_med = 0, rsq_low = 0;
+        int rfq_high = 0, rfq_med = 0, rfq_low = 0;
+        int peq_high = 0, peq_med = 0, peq_low = 0;
+        int dcq_high = 0, dcq_med = 0, dcq_low = 0;
+        int cq_high = 0, cq_med = 0, cq_low = 0;
+        int irq_high = 0, irq_med = 0, irq_low = 0;
+
         protected void btnHide_Click(object sender, EventArgs e)
         {
-            //Session["user_mail"] = txt_EmalId.Text.ToString();
-            //dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
-            CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString());
+            Session["user_mail"] = txt_EmalId.Text.ToString();
+            dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
+            CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rsq"]), Convert.ToInt32(Session["rfq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rsq_cmt"].ToString(), Session["rfq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString(), Session["pcq_status"].ToString(), Session["rsq_status"].ToString(), Session["peq_status"].ToString(), Session["dcq_status"].ToString(), Session["cq_status"].ToString(), Session["irq_status"].ToString());
         }
 
 
@@ -46,6 +54,7 @@ namespace ArmourCyberSecurity
             DataTable dt = new DataTable();
             dt = GetReport();
 
+
             int counter1 = 0, counter2 = 0;
             foreach (DataRow row in dt.Rows)
             {
@@ -55,6 +64,21 @@ namespace ArmourCyberSecurity
                     {
                         pcq = pcq + Convert.ToInt32(row["answer_wt"]);
                     }
+
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        pcq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        pcq_med++;
+                    }
+                    else
+                    if(row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        pcq_low++;
+                    }
                 }
                 else
                 if (row["question_type"].ToString() == "Regional Specific Questions")
@@ -63,6 +87,21 @@ namespace ArmourCyberSecurity
                     {
                         rsq = rsq + Convert.ToInt32(row["answer_wt"]);
                         counter1++;
+                    }
+
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        rsq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        rsq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        rsq_low++;
                     }
                 }
                 else
@@ -74,6 +113,20 @@ namespace ArmourCyberSecurity
                         counter2++;
                     }
 
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        rfq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        rfq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        rfq_low++;
+                    }
                 }
                 else
                 if (row["question_type"].ToString() == "Privacy Engineering")
@@ -81,6 +134,21 @@ namespace ArmourCyberSecurity
                     if (row["answer_wt"].ToString() != "-1")
                     {
                         peq = peq + Convert.ToInt32(row["answer_wt"]);
+                    }
+
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        peq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        peq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        peq_low++;
                     }
                 }
                 else
@@ -96,6 +164,21 @@ namespace ArmourCyberSecurity
                         int dc_ans23 = dalobj.GetQues23Wt();
                         dcq = dcq + dc_ans23;
                     }
+
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        dcq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        dcq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        dcq_low++;
+                    }
                 }
                 else
                 if (row["question_type"].ToString() == "Consent")
@@ -103,6 +186,21 @@ namespace ArmourCyberSecurity
                     if (row["answer_wt"].ToString() != "-1")
                     {
                         cq = cq + Convert.ToInt32(row["answer_wt"]);
+                    }
+
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        cq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        cq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        cq_low++;
                     }
                 }
                 else
@@ -113,6 +211,20 @@ namespace ArmourCyberSecurity
                         irq = irq + Convert.ToInt32(row["answer_wt"]);
                     }
 
+                    if (row["ans_Text"].ToString() == "YES")
+                    {
+                        irq_high++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "SOMEWHAT")
+                    {
+                        irq_med++;
+                    }
+                    else
+                    if (row["ans_Text"].ToString() == "NO" || row["ans_Text"].ToString() == "UNSURE")
+                    {
+                        irq_low++;
+                    }
                 }
             }
 
@@ -143,43 +255,85 @@ namespace ArmourCyberSecurity
                 }
                 if ((row["criteria"].ToString() == "Privacy Culture Questions"))
                 {
-                    if (pcq < 650)
+                    //if (pcq < 650)
+                    //{
+                    //    pcq_cmt = row["low_cmt"].ToString();
+                    //    img_pcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (pcq >= 650 && pcq <= 750)
+                    //{
+                    //    pcq_cmt = row["med_cmt"].ToString();
+                    //    img_pcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (pcq > 751)
+                    //{
+                    //    pcq_cmt = row["high_cmt"].ToString();
+                    //    img_pcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if(pcq_low > 0)
                     {
                         pcq_cmt = row["low_cmt"].ToString();
                         img_pcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["pcq_status"] = "LOW";
                     }
                     else
-                    if (pcq >= 650 && pcq <= 750)
+                    if(pcq_low == 0 && pcq_med >0)
                     {
                         pcq_cmt = row["med_cmt"].ToString();
                         img_pcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["pcq_status"] = "MED";
                     }
                     else
-                    if (pcq > 751)
+                    if(pcq_low == 0 && pcq_med == 0 && pcq_high > 0)
                     {
                         pcq_cmt = row["high_cmt"].ToString();
                         img_pcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        Session["pcq_status"] = "HIGH";
                     }
                 }
                 else
                 if (row["criteria"].ToString() == "Regional Specific Questions")
                 {
-                    if (rsq < 650)
+                    //if (rsq < 650)
+                    //{
+                    //    rsq_cmt = row["low_cmt"].ToString();
+                    //    img_rsq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (rsq >= 650 && rsq <= 750)
+                    //{
+                    //    rsq_cmt = row["med_cmt"].ToString();
+                    //    img_rsq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (rsq > 751)
+                    //{
+                    //    rsq_cmt = row["high_cmt"].ToString();
+                    //    img_rsq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if (rsq_low > 0)
                     {
                         rsq_cmt = row["low_cmt"].ToString();
                         img_rsq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["rsq_status"] = "LOW";
                     }
                     else
-                    if (rsq >= 650 && rsq <= 750)
+                    if (rsq_low == 0 && rsq_med > 0)
                     {
                         rsq_cmt = row["med_cmt"].ToString();
                         img_rsq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["rsq_status"] = "MED";
                     }
                     else
-                    if (rsq > 751)
+                    if (rsq_low == 0 && rsq_med == 0 && rsq_high > 0)
                     {
                         rsq_cmt = row["high_cmt"].ToString();
                         img_rsq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        Session["rsq_status"] = "HIGH";
                     }
                 }
                 else
@@ -204,87 +358,171 @@ namespace ArmourCyberSecurity
                 else
                 if (row["criteria"].ToString() == "Privacy Engineering")
                 {
-                    if (peq < 650)
+                    //if (peq < 650)
+                    //{
+                    //    peq_cmt = row["low_cmt"].ToString();
+                    //    img_peq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (peq >= 650 && peq <= 750)
+                    //{
+                    //    peq_cmt = row["med_cmt"].ToString();
+                    //    img_peq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (peq > 750)
+                    //{
+                    //    peq_cmt = row["high_cmt"].ToString();
+                    //    img_peq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if (peq_low > 0)
                     {
                         peq_cmt = row["low_cmt"].ToString();
                         img_peq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["peq_status"] = "LOW";
                     }
                     else
-                    if (peq >= 650 && peq <= 750)
+                    if (peq_low == 0 && peq_med > 0)
                     {
                         peq_cmt = row["med_cmt"].ToString();
                         img_peq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["peq_status"] = "MED";
                     }
                     else
-                    if (peq > 750)
+                    if (peq_low == 0 && peq_med == 0 && peq_high > 0)
                     {
-                        peq_cmt = row["high_cmt"].ToString();
-                        img_peq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        peq_cmt = row["low_cmt"].ToString();
+                        img_peq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["peq_status"] = "HIGH";
                     }
                 }
                 else
                 if (row["criteria"].ToString() == "Data Control")
                 {
-                    if (dcq < 650)
+                    //if (dcq < 650)
+                    //{
+                    //    dcq_cmt = row["low_cmt"].ToString();
+                    //    img_dcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (dcq >= 650 && dcq <= 750)
+                    //{
+                    //    dcq_cmt = row["med_cmt"].ToString();
+                    //    img_dcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (dcq > 750)
+                    //{
+                    //    dcq_cmt = row["high_cmt"].ToString();
+                    //    img_dcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if (dcq_low > 0)
                     {
                         dcq_cmt = row["low_cmt"].ToString();
                         img_dcq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["dcq_status"] = "LOW";
                     }
                     else
-                    if (dcq >= 650 && dcq <= 750)
+                    if (dcq_low == 0 && dcq_med > 0)
                     {
                         dcq_cmt = row["med_cmt"].ToString();
                         img_dcq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["dcq_status"] = "MED";
                     }
                     else
-                    if (dcq > 750)
+                    if (dcq_low == 0 && dcq_med == 0 && dcq_high > 0)
                     {
                         dcq_cmt = row["high_cmt"].ToString();
                         img_dcq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        Session["dcq_status"] = "HIGH";
                     }
 
                 }
                 else
                 if (row["criteria"].ToString() == "Consent")
                 {
-                    if (cq < 650)
+                    //if (cq < 650)
+                    //{
+                    //    cq_cmt = row["low_cmt"].ToString();
+                    //    img_cq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (cq >= 650 && cq <= 750)
+                    //{
+                    //    cq_cmt = row["med_cmt"].ToString();
+                    //    img_cq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (cq > 750)
+                    //{
+                    //    cq_cmt = row["high_cmt"].ToString();
+                    //    img_cq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if (cq_low > 0)
                     {
                         cq_cmt = row["low_cmt"].ToString();
                         img_cq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["cq_status"] = "LOW";
                     }
                     else
-                    if (cq >= 650 && cq <= 750)
+                    if (cq_low == 0 && cq_med > 0)
                     {
                         cq_cmt = row["med_cmt"].ToString();
                         img_cq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["cq_status"] = "MED";
                     }
                     else
-                    if (cq > 750)
+                    if (cq_low == 0 && cq_med == 0 && cq_high > 0)
                     {
                         cq_cmt = row["high_cmt"].ToString();
                         img_cq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        Session["cq_status"] = "HIGH";
                     }
 
                 }
                 else
                 if (row["criteria"].ToString() == "Incident Response")
                 {
-                    if (irq < 650)
+                    //if (irq < 650)
+                    //{
+                    //    irq_cmt = row["low_cmt"].ToString();
+                    //    img_irq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                    //}
+                    //else
+                    //if (irq >= 650 && irq <= 750)
+                    //{
+                    //    irq_cmt = row["med_cmt"].ToString();
+                    //    img_irq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                    //}
+                    //else
+                    //if (irq > 750)
+                    //{
+                    //    irq_cmt = row["high_cmt"].ToString();
+                    //    img_irq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                    //}
+
+                    if (irq_low > 0)
                     {
                         irq_cmt = row["low_cmt"].ToString();
                         img_irq.ImageUrl = Page.ResolveUrl("~/images/red.PNG");
+                        Session["irq_status"] = "LOW";
                     }
                     else
-                    if (irq >= 650 && irq <= 750)
+                    if (irq_low == 0 && irq_med > 0)
                     {
                         irq_cmt = row["med_cmt"].ToString();
                         img_irq.ImageUrl = Page.ResolveUrl("~/images/yellow.PNG");
+                        Session["irq_status"] = "MED";
                     }
                     else
-                    if (irq > 750)
+                    if (irq_low == 0 && irq_med == 0 && irq_high > 0)
                     {
                         irq_cmt = row["high_cmt"].ToString();
                         img_irq.ImageUrl = Page.ResolveUrl("~/images/green.PNG");
+                        Session["irq_status"] = "HIGH";
                     }
 
                 }
@@ -334,7 +572,7 @@ namespace ArmourCyberSecurity
 
         }
 
-        private void CreatePdf(int overall, int pcq, int rsq, int rfq, int peq, int dcq, int cq, int irq, string overall_cmt, string pcq_cmt, string rsq_cmt, string rfq_cmt, string peq_cmt, string dcq_cmt, string cq_cmt, string irq_cmt)
+        private void CreatePdf(int overall, int pcq, int rsq, int rfq, int peq, int dcq, int cq, int irq, string overall_cmt, string pcq_cmt, string rsq_cmt, string rfq_cmt, string peq_cmt, string dcq_cmt, string cq_cmt, string irq_cmt, string pcq_status, string rsq_status, string peq_status, string dcq_status, string cq_status, string irq_status)
         {
             PdfPTable table = null;
             Phrase phrase = null;
@@ -520,21 +758,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image pcq_img;
-                        if (pcq < 650)
+                        if (pcq_status == "LOW")
                         {
                             pcq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             pcq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(pcq_img);
                         }
                         else
-                        if (pcq >= 650 && pcq <= 750)
+                        if (pcq_status == "MED")
                         {
                             pcq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             pcq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(pcq_img);
                         }
                         else
-                        if (pcq > 751)
+                        if (pcq_status == "HIGH")
                         {
                             pcq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             pcq_img.ScaleAbsolute(75f, 75f);
@@ -584,21 +822,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image rsq_img;
-                        if (rsq < 650)
+                        if (rsq_status == "LOW")
                         {
                             rsq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             rsq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(rsq_img);
                         }
                         else
-                        if (rsq >= 650 && rsq <= 750)
+                        if (rsq_status == "MED")
                         {
                             rsq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             rsq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(rsq_img);
                         }
                         else
-                        if (rsq > 751)
+                        if (rsq_status == "HIGH")
                         {
                             rsq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             rsq_img.ScaleAbsolute(75f, 75f);
@@ -648,21 +886,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image peq_img;
-                        if (peq < 650)
+                        if (peq_status == "LOW")
                         {
                             peq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             peq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(peq_img);
                         }
                         else
-                        if (peq >= 650 && peq <= 750)
+                        if (peq_status == "MED")
                         {
                             peq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             peq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(peq_img);
                         }
                         else
-                        if (peq > 751)
+                        if (peq_status == "HIGH")
                         {
                             peq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             peq_img.ScaleAbsolute(75f, 75f);
@@ -777,21 +1015,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image dcq_img;
-                        if (dcq < 650)
+                        if (dcq_status == "LOW")
                         {
                             dcq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             dcq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(dcq_img);
                         }
                         else
-                        if (dcq >= 650 && dcq <= 750)
+                        if (dcq_status == "MED")
                         {
                             dcq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             dcq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(dcq_img);
                         }
                         else
-                        if (dcq > 751)
+                        if (dcq_status == "HIGH")
                         {
                             dcq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             dcq_img.ScaleAbsolute(75f, 75f);
@@ -841,21 +1079,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image cq_img;
-                        if (cq < 650)
+                        if (cq_status == "LOW")
                         {
                             cq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             cq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(cq_img);
                         }
                         else
-                        if (cq >= 650 && cq <= 750)
+                        if (cq_status == "MED")
                         {
                             cq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             cq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(cq_img);
                         }
                         else
-                        if (cq > 751)
+                        if (cq_status == "HIGH")
                         {
                             cq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             cq_img.ScaleAbsolute(75f, 75f);
@@ -905,21 +1143,21 @@ namespace ArmourCyberSecurity
                         table.AddCell(cell);
 
                         Image irq_img;
-                        if (irq < 650)
+                        if (irq_status == "LOW")
                         {
                             irq_img = Image.GetInstance(imagepath + "/red_circle.png");
                             irq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(irq_img);
                         }
                         else
-                        if (irq >= 650 && irq <= 750)
+                        if (irq_status == "MED")
                         {
                             irq_img = Image.GetInstance(imagepath + "/yellow_circle.png");
                             irq_img.ScaleAbsolute(75f, 75f);
                             cell = new PdfPCell(irq_img);
                         }
                         else
-                        if (irq > 751)
+                        if (irq_status == "HIGH")
                         {
                             irq_img = Image.GetInstance(imagepath + "/green_circle.png");
                             irq_img.ScaleAbsolute(75f, 75f);
@@ -981,8 +1219,8 @@ namespace ArmourCyberSecurity
                         email_body = email_body + "Powered by Armour Cybersecurity 2020<br />" + Environment.NewLine;
 
 
-                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
-                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
+                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
+                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
                         mm.Subject = "Your Company's Privacy Compliance Report";
                         mm.Body = email_body;
                         mm.Attachments.Add(new Attachment(new MemoryStream(bytes), "CyberRiskAssessmentReport.pdf"));
@@ -1013,8 +1251,8 @@ namespace ArmourCyberSecurity
 
         public DataTable GetReport()
         {
-            //string userId = Session["userId"].ToString();
-            string userId = "63ae025c-7c22-46d7-ae3e-e4594960e728";
+            string userId = Session["userId"].ToString();
+            //string userId = "b094f717-8cf5-472a-bd55-7a73aa73f94c";
             DataTable dt = new DataTable();
             dt = dal.GetUserReport(userId);
             return dt;

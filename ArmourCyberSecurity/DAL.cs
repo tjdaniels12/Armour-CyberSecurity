@@ -60,7 +60,7 @@ namespace ArmourCyberSecurity
         {
             SqlConnection cnn = new SqlConnection(connetionString);
             cnn.Open();
-            string sql = "SELECT question_id, question_type, answer_wt FROM ar_sec_User_Feedback_Collection_Level1 WHERE userId = @userId";
+            string sql = "SELECT question_id, question_type, answer_wt, ans_Text FROM ar_sec_User_Feedback_Collection_Level1 WHERE userId = @userId";
             cmd = new SqlCommand(sql, cnn);
             cmd.Parameters.Add(new SqlParameter("@userId", userId));
             SqlDataAdapter da = new SqlDataAdapter(cmd);
