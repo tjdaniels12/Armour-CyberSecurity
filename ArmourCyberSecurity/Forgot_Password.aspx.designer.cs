@@ -10,7 +10,7 @@
 namespace ArmourCyberSecurity {
     
     
-    public partial class Login {
+    public partial class Forgot_Password {
         
         /// <summary>
         /// form1 control.
@@ -22,12 +22,12 @@ namespace ArmourCyberSecurity {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Login1 control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Login Login1;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
     }
 }

@@ -73,3 +73,6 @@ C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\AjaxCont
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.dll
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.xml
 C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\itextsharp.xmlworker.dll
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\SendGrid.dll
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\SendGrid.pdb
+C:\Users\rosha\source\repos\ArmourCyberSecurity\ArmourCyberSecurity\bin\SendGrid.xml
