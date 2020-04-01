@@ -10,7 +10,8 @@ namespace ArmourCyberSecurity
     public class DAL
     {
         //Local
-        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        //string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        string connetionString = @"Server=LAPTOP-7JG6E6T8\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
 
         SqlCommand cmd;
 
@@ -85,6 +86,32 @@ namespace ArmourCyberSecurity
             cmd.Parameters.Add(new SqlParameter("@premium_member", "0"));
             cmd.ExecuteNonQuery();
             cnn.Close();
+        }
+
+        public void SaveFreeUser(string userID, string email)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "INSERT INTO FreeUsers(userId, Email) VALUES (@userID, @email";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userID", userID));
+            cmd.Parameters.Add(new SqlParameter("@email", email));
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
+
+        public int CheckIfUserExists(string email)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            SqlCommand cmd = new SqlCommand("CheckIfUserExists", cnn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@IsExists", 0);
+            int rowAffected = cmd.ExecuteNonQuery();
+            cnn.Close();
+            return rowAffected;
+            // rowAffected contains your Result
         }
 
         public DataTable LoadRegion()

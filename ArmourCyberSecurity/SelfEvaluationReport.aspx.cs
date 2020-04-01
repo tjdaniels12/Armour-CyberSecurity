@@ -34,8 +34,23 @@ namespace ArmourCyberSecurity
 
         protected void btnHide_Click(object sender, EventArgs e)
         {
-            //Session["user_mail"] = txt_EmalId.Text.ToString();
-            //dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
+            Session["user_mail"] = txt_EmalId.Text.Trim().ToString();
+            if (dal.CheckIfUserExists(txt_EmalId.Text.Trim().ToString()) == 0) //if email is not already in database
+            {
+                //dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());    //no email found, create and insert user
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('New User Created')", true); //for debugging
+            }
+            else
+            {
+                //user has done level 2
+                //grab userID from users table
+                //
+                //dal.SaveFreeUser(Session["userId"].ToString(), Session["user_mail"].ToString());
+                int numberOfRecords = dal.CheckIfUserExists(Session["user_mail"].ToString()); //for debugging
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('records found: " + numberOfRecords.ToString() + " ')", true); //for debugging
+            }
+            
+            
             CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rrq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rrq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString(), Session["pcq_status"].ToString(), Session["rrq_status"].ToString(), Session["peq_status"].ToString(), Session["dcq_status"].ToString(), Session["cq_status"].ToString(), Session["irq_status"].ToString());
         }
 
@@ -1092,8 +1107,8 @@ namespace ArmourCyberSecurity
                         email_body = email_body + "Powered by Armour Cybersecurity 2020<br />" + Environment.NewLine;
 
 
-                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
-                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
+                        //MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
+                        MailMessage mm = new MailMessage("roshandeep810@gmail.com", Session["user_mail"].ToString());
                         mm.Subject = "Your Company's Privacy Compliance Report";
                         mm.Body = email_body;
                         mm.Attachments.Add(new Attachment(new MemoryStream(bytes), "CyberRiskAssessmentReport.pdf"));
@@ -1124,8 +1139,8 @@ namespace ArmourCyberSecurity
 
         public DataTable GetReport()
         {
-            //string userId = Session["userId"].ToString();
-            string userId = "264acaab-3998-48ea-980e-b527e26a103d";
+            string userId = Session["userId"].ToString();
+            //string userId = "264acaab-3998-48ea-980e-b527e26a103d";
             DataTable dt = new DataTable();
             dt = dal.GetUserReport(userId);
             return dt;

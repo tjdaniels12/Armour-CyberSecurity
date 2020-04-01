@@ -137,6 +137,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="CustomRoadmapMenu.Master" />
+    <Content Include="Customers\Web.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="images\armor-logo.png" />
     <Content Include="images\Binary-Tattoo.jpg" />
@@ -180,9 +181,9 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="Section1.aspx" />
-    <Content Include="Section2.aspx" />
-    <Content Include="Section3.aspx" />
+    <Content Include="Customers\Section1.aspx" />
+    <Content Include="Customers\Section2.aspx" />
+    <Content Include="Customers\Section3.aspx" />
     <Content Include="SelfEvaluation.aspx" />
     <Content Include="SelfEvaluationReport.aspx" />
     <Content Include="Site.Master" />
@@ -236,25 +237,25 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Section1.aspx.cs">
+    <Compile Include="Customers\Section1.aspx.cs">
       <DependentUpon>Section1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Section1.aspx.designer.cs">
+    <Compile Include="Customers\Section1.aspx.designer.cs">
       <DependentUpon>Section1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Section2.aspx.cs">
+    <Compile Include="Customers\Section2.aspx.cs">
       <DependentUpon>Section2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Section2.aspx.designer.cs">
+    <Compile Include="Customers\Section2.aspx.designer.cs">
       <DependentUpon>Section2.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Section3.aspx.cs">
+    <Compile Include="Customers\Section3.aspx.cs">
       <DependentUpon>Section3.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Section3.aspx.designer.cs">
+    <Compile Include="Customers\Section3.aspx.designer.cs">
       <DependentUpon>Section3.aspx</DependentUpon>
     </Compile>
     <Compile Include="SelfEvaluation.aspx.cs">

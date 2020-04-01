@@ -45,7 +45,7 @@
                 Font-Size="10pt" 
                 Font-Names="Verdana" 
                 CreateUserText="Create a new user..."
-                CreateUserUrl="newUser.aspx" 
+                CreateUserUrl="Register.aspx" 
                 HelpPageUrl="help.aspx"
                 PasswordRecoveryUrl="getPass.aspx" 
                 UserNameLabelText="Email address:" 
@@ -94,9 +94,9 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <asp:HyperLink runat="server" NavigateUrl="newUser.aspx" ID="CreateUserLink">Create a new user...</asp:HyperLink>
+                                            <asp:HyperLink runat="server" NavigateUrl="Register.aspx" ID="CreateUserLink">Register</asp:HyperLink>
                                             <br />
-                                            <asp:HyperLink runat="server" NavigateUrl="getPass.aspx" ID="PasswordRecoveryLink">Forgot your password?</asp:HyperLink>
+                                            <asp:HyperLink runat="server" NavigateUrl="Forgot_Password.aspx" ID="PasswordRecoveryLink">Forgot your password?</asp:HyperLink>
                                         </td>
                                     </tr>
                                 </table>

@@ -22,7 +22,7 @@ namespace ArmourCyberSecurity
             if (!String.IsNullOrEmpty(Request.Params["logout"]))
             {
                 FormsAuthentication.SignOut();
-                Response.Redirect("./");
+                Response.Redirect("LandingPage.aspx");
             }
         }
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace ArmourCyberSecurity
             if (ValidateUser(Login1.UserName, Login1.Password))
                 FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
             else
-                Login1.FailureText += "\nCredentials do not match our records.";
+                Login1.FailureText = "\nCredentials do not match our records.";
         }
 
         bool IsValidEmail(string strIn)
@@ -44,7 +44,8 @@ namespace ArmourCyberSecurity
 
         bool ValidateUser(string user, string pass)
         {
-            string connStr = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+            //string connStr = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+            string connStr = @"Server=LAPTOP-7JG6E6T8\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
@@ -61,14 +62,12 @@ namespace ArmourCyberSecurity
                 {
                     string salt = reader["salt"].ToString();
                     string hash = reader["password"].ToString();
-                    Login1.FailureText += "\nreached VerifyPassword.";
-                    Login1.FailureText += "\nsalt:" + salt + "\nhash:" + hash;
                     return VerifyPassword(pass, hash, salt);
 
                 }
                 else
                 {
-                    Login1.FailureText += "reader.Read() failed.";
+                    //Login1.FailureText += "reader.Read() failed.";
                     return false;
                 }
                
@@ -86,7 +85,7 @@ namespace ArmourCyberSecurity
             {
                 var apiKey = "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";
                 var client = new SendGridClient(apiKey);
-                var from = new EmailAddress("plswork@example.com", "Example User");
+                var from = new EmailAddress("SecurityReport@PrivacyComplianceSolutions.com", "Example User");
                 var subject = "Sending with SendGrid is Fun";
                 var to = new EmailAddress("tjdaniels1212@gmail.com", "Tyler");
                 var plainTextContent = "and easy to do anywhere, even with C#";

@@ -25,7 +25,8 @@ namespace ArmourCyberSecurity
         protected void RegisterUser(object sender, EventArgs e)
         {
             int userId = 0;
-            string constr = ConfigurationManager.ConnectionStrings["Main"].ConnectionString;
+            //string constr = ConfigurationManager.ConnectionStrings["Main"].ConnectionString; 
+            string constr = @"Server=LAPTOP-7JG6E6T8\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
             HashSalt hashSalt = GenerateSaltedHash(16, txtPassword.Text.Trim());
             FailureText.Text = "\n\n\nSALT: " + hashSalt.Salt;
             FailureText.Text += "\n\n\nHASH: " + hashSalt.Hash;
