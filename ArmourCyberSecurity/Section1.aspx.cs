@@ -51,9 +51,13 @@ namespace ArmourCyberSecurity
 
         private void GetUserId()
         {
-            userId = "86573ce3-5aa8-4a26-9b23-ca5e68275193";
+            DAL dal = new DAL();
+            //emailId comes from the login page or the registration page
+            string emailId = "roshandeep810@gmail.com";
+            userId = dal.GetUserId(emailId);
             Session["userId"] = userId;
         }
+
 
         private void LoadQuestionnaire()
         {

@@ -9,7 +9,7 @@ namespace ArmourCyberSecurity
 {
     public class DAL
     {
-        //Local
+        //RDSS Local
         string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
 
         SqlCommand cmd;
@@ -40,6 +40,18 @@ namespace ArmourCyberSecurity
             da.Fill(ds);
             cnn.Close();
             return ds.Tables[0];
+        }
+
+        public string GetUserId(string emailId)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "SELECT DISTINCT userId FROM ar_sec_users WHERE email_id = @email_id";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@email_id", emailId));
+            string exsists = cmd.ExecuteScalar().ToString();
+            cnn.Close();
+            return exsists;
         }
 
         public DataTable LoadLevel2Questions()
@@ -85,6 +97,32 @@ namespace ArmourCyberSecurity
             cmd.Parameters.Add(new SqlParameter("@premium_member", "0"));
             cmd.ExecuteNonQuery();
             cnn.Close();
+        }
+
+        public void SaveFreeUser(string userID, string email)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            string sql = "INSERT INTO FreeUsers(userId, Email) VALUES (@userID, @email";
+            cmd = new SqlCommand(sql, cnn);
+            cmd.Parameters.Add(new SqlParameter("@userID", userID));
+            cmd.Parameters.Add(new SqlParameter("@email", email));
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
+
+        public int CheckIfUserExists(string email)
+        {
+            SqlConnection cnn = new SqlConnection(connetionString);
+            cnn.Open();
+            SqlCommand cmd = new SqlCommand("CheckIfUserExists", cnn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@IsExists", 0);
+            int rowAffected = cmd.ExecuteNonQuery();
+            cnn.Close();
+            return rowAffected;
+            // rowAffected contains your Result
         }
 
         public DataTable LoadRegion()

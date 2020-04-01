@@ -34,7 +34,7 @@
         <asp:Label ID="lbl_warning" runat="server" Text="" ForeColor="Red"/>
 
         <asp:Button ID="btn_Save2" runat="server" Text="Save" OnClick="btn_Save2_Click"/>
-        <asp:Button ID="btn_Submit" runat="server" Text="Finish" OnClick="btn_Submit_Click"/>
+       <%-- <asp:Button ID="btn_Submit" runat="server" Text="Finish" OnClick="btn_Submit_Click"/>--%>
 
     </div>
 </asp:Content>

@@ -17,12 +17,15 @@ namespace ArmourCyberSecurity
 {
     public partial class Login : System.Web.UI.Page
     {
+        //RDSS Local
+        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(Request.Params["logout"]))
             {
                 FormsAuthentication.SignOut();
-                Response.Redirect("./");
+                Response.Redirect("~/Level1/LandingPage.aspx");
             }
         }
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -44,8 +47,8 @@ namespace ArmourCyberSecurity
 
         bool ValidateUser(string user, string pass)
         {
-            string connStr = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
-            using (SqlConnection conn = new SqlConnection(connStr))
+
+            using (SqlConnection conn = new SqlConnection(connetionString))
             {
                 conn.Open();
                 //string sql = "select email from users where email = @email and password = @password";

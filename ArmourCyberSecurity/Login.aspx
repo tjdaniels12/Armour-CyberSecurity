@@ -94,7 +94,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <asp:HyperLink runat="server" NavigateUrl="newUser.aspx" ID="CreateUserLink">Create a new user...</asp:HyperLink>
+                                            <asp:HyperLink runat="server" NavigateUrl="Registration/Register" ID="CreateUserLink">Create a new user...</asp:HyperLink>
                                             <br />
                                             <asp:HyperLink runat="server" NavigateUrl="getPass.aspx" ID="PasswordRecoveryLink">Forgot your password?</asp:HyperLink>
                                         </td>

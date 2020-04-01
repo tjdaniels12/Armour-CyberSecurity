@@ -29,8 +29,7 @@ namespace ArmourCyberSecurity
 
         private void GetUserId()
         {
-            userId = "86573ce3-5aa8-4a26-9b23-ca5e68275193";
-            Session["userId"] = userId;
+            userId = Session["userId"].ToString();
         }
 
         private void LoadPreviousState()
@@ -132,16 +131,16 @@ namespace ArmourCyberSecurity
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            DAL dal = new DAL();
-            int noOfSec = dal.CheckAllSections(userId);
-            if(noOfSec == 2)
-            {
+            //DAL dal = new DAL();
+            //int noOfSec = dal.CheckAllSections(userId);
+            //if(noOfSec == 2)
+            //{
 
-            }
-            else
-            {
-                lbl_warning.Text = "Complete All Sections";
-            }
+            //}
+            //else
+            //{
+            //    lbl_warning.Text = "Complete All Sections";
+            //}
         }
     }
 }
