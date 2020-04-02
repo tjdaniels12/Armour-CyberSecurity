@@ -10,7 +10,7 @@ namespace ArmourCyberSecurity
     public class DAL
     {
         //RDSS Local
-        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        string connetionString = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
 
         SqlCommand cmd;
 

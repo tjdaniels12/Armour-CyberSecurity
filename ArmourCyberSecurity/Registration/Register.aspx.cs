@@ -18,7 +18,7 @@ namespace ArmourCyberSecurity
     public partial class Register : System.Web.UI.Page
     {
         //RDSS Local
-        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        string connetionString = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,10 +27,11 @@ namespace ArmourCyberSecurity
 
         protected void RegisterUser(object sender, EventArgs e)
         {
-            int userId = 0;
             HashSalt hashSalt = GenerateSaltedHash(16, txtPassword.Text.Trim());
-            FailureText.Text = "\n\n\nSALT: " + hashSalt.Salt;
-            FailureText.Text += "\n\n\nHASH: " + hashSalt.Hash;
+            int result = 0;
+            Guid obj = Guid.NewGuid();
+            string userId = obj.ToString();
+            Session["userId"] = userId;
 
             using (SqlConnection con = new SqlConnection(connetionString))
             {
@@ -39,18 +40,20 @@ namespace ArmourCyberSecurity
                     using (SqlDataAdapter sda = new SqlDataAdapter())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@UserID", userId);
                         cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
                         cmd.Parameters.AddWithValue("@Password", hashSalt.Hash);
                         cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                         cmd.Parameters.AddWithValue("@Salt", hashSalt.Salt);
                         cmd.Connection = con;
                         con.Open();
-                        userId = Convert.ToInt32(cmd.ExecuteScalar());
+                        result = Convert.ToInt32(cmd.ExecuteScalar());
                         con.Close();
                     }
                 }
                 string message = string.Empty;
-                switch (userId)
+                bool registered = false;
+                switch (result)
                 {
                     case -1:
                         message = "Username already exists.\\nPlease choose a different username.";
@@ -61,17 +64,23 @@ namespace ArmourCyberSecurity
                     default:
                         message = "Registration successful.\\nAn activation email has been sent.";
                         SendActivationEmail(userId);
+                        registered = true;
                         break;
                 }
                 ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
+                if (registered == true)
+                {
+                    Response.Redirect("~/Login.aspx", false);
+                }
+                
             }
         }
 
 
-        private void SendActivationEmail(int userId)
+        private void SendActivationEmail(string userId)
         {
             //string constr = ConfigurationManager.ConnectionStrings["main"].ConnectionString;
-            string constr = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+            string constr = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
             string activationCode = Guid.NewGuid().ToString();
             string emailAddress = txtEmail.Text.Trim();
             string username = txtUsername.Text.Trim();

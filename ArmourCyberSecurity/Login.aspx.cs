@@ -18,20 +18,21 @@ namespace ArmourCyberSecurity
     public partial class Login : System.Web.UI.Page
     {
         //RDSS Local
-        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        string connetionString = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(Request.Params["logout"]))
             {
                 FormsAuthentication.SignOut();
-                Response.Redirect("~/Level1/LandingPage.aspx");
+                Response.Redirect("~/Level1/LandingPage.aspx", false);
             }
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             if (ValidateUser(Login1.UserName, Login1.Password))
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
+                //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
+                Response.Redirect("~/Section1.aspx", false);
             else
                 Login1.FailureText += "\nCredentials do not match our records.";
         }
