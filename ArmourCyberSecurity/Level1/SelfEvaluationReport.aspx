@@ -168,6 +168,8 @@
                     <asp:TextBox ID="txt_EmalId" runat="server" placeholder="Email Address" ClientIDMode="Static"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="regEmailId" runat="server" ControlToValidate="txt_EmalId" ErrorMessage="Please enter valid email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">  </asp:RegularExpressionValidator>
                     <br />
+                    <asp:TextBox ID="txt_industry" runat="server" placeholder="Your Industry" ClientIDMode="Static"></asp:TextBox>
+
                     <asp:LinkButton ID="lnkDummyCancel" runat="server"></asp:LinkButton>
                     <asp:Button ID="btnHide" runat="server" Text="Submit" ClientIDMode="Static" Enabled="false" OnClick="btnHide_Click" />
                 </div>

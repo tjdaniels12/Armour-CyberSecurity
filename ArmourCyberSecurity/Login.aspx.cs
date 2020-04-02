@@ -31,9 +31,15 @@ namespace ArmourCyberSecurity
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             if (ValidateUser(Login1.UserName, Login1.Password))
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
+            {
+                //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
+                Response.Redirect("~/Section1.aspx", false);
+            }
+
             else
+            {
                 Login1.FailureText += "\nCredentials do not match our records.";
+            }
         }
 
         bool IsValidEmail(string strIn)
@@ -51,14 +57,9 @@ namespace ArmourCyberSecurity
             using (SqlConnection conn = new SqlConnection(connetionString))
             {
                 conn.Open();
-                //string sql = "select email from users where email = @email and password = @password";
-                //SqlCommand cmd = new SqlCommand(sql, conn);
                 string passwordSQL = "select password, salt from users where email = @email";
                 SqlCommand cmd = new SqlCommand(passwordSQL, conn);
                 cmd.Parameters.AddWithValue("@email", user);
-                //cmd.Parameters.AddWithValue("@password", Sha1(Salt(pass)));
-                //cmd.Parameters.AddWithValue("@password", pass);
-                //return cmd.ExecuteScalar() is string;
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {

@@ -49,7 +49,6 @@
                 HelpPageUrl="help.aspx"
                 PasswordRecoveryUrl="getPass.aspx" 
                 UserNameLabelText="Email address:" 
-                OnLoggingIn="OnLoggingIn"
                 OnLoginError="OnLoginError" 
                 PasswordRecoveryText = "Forgot your password?">
 

@@ -40,6 +40,10 @@ namespace ArmourCyberSecurity
         protected void btnHide_Click(object sender, EventArgs e)
         {
             Session["user_mail"] = txt_EmalId.Text.ToString();
+            if (txt_industry.Text != null)
+            {
+                Session["industry"] = txt_industry.Text;
+            }
             dal.SaveUser(Session["user_mail"].ToString(), Session["userId"].ToString());
             CreatePdf(Convert.ToInt32(Session["overall"]), Convert.ToInt32(Session["pcq"]), Convert.ToInt32(Session["rrq"]), Convert.ToInt32(Session["peq"]), Convert.ToInt32(Session["dcq"]), Convert.ToInt32(Session["cq"]), Convert.ToInt32(Session["irq"]), Session["overall_cmt"].ToString(), Session["pcq_cmt"].ToString(), Session["rrq_cmt"].ToString(), Session["peq_cmt"].ToString(), Session["dcq_cmt"].ToString(), Session["cq_cmt"].ToString(), Session["irq_cmt"].ToString(), Session["overall_status"].ToString(), Session["pcq_status"].ToString(), Session["rrq_status"].ToString(), Session["peq_status"].ToString(), Session["dcq_status"].ToString(), Session["cq_status"].ToString(), Session["irq_status"].ToString());
         }
