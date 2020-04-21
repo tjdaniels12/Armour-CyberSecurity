@@ -18,10 +18,11 @@ namespace ArmourCyberSecurity
     public partial class Login : System.Web.UI.Page
     {
         //RDSS Local
-        string connetionString = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+        string connetionString = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Login1.Focus();
             if (!String.IsNullOrEmpty(Request.Params["logout"]))
             {
                 FormsAuthentication.SignOut();
@@ -30,24 +31,6 @@ namespace ArmourCyberSecurity
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-<<<<<<< Updated upstream
-            if (ValidateUser(Login1.UserName, Login1.Password))
-            {
-                //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
-                Response.Redirect("~/Section1.aspx", false);
-            }
-
-            else
-            {
-                Login1.FailureText += "\nCredentials do not match our records.";
-            }
-        }
-
-        bool IsValidEmail(string strIn)
-        {
-            // Return true if strIn is in valid email format.
-            return Regex.IsMatch(strIn, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-=======
             if (ValidateUser(Login1.UserName.Trim().ToString(), Login1.Password.Trim().ToString()))
                 using (SqlConnection con = new SqlConnection(connetionString))
                 {
@@ -84,8 +67,6 @@ namespace ArmourCyberSecurity
             {
                 Login1.FailureText = "Credentials do not match our records.";
             }
-                
->>>>>>> Stashed changes
         }
 
 

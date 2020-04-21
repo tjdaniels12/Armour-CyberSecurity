@@ -17,7 +17,7 @@ namespace ArmourCyberSecurity.Registration
         
         protected void ResetClick(object sender, EventArgs e)
         {
-            
+            //MAJOR SECURITY ISSUE IN HERE NEEDS TO BE FIXED, DONT PROMPT FOR EMAIL AT ALL, GRAB EMAIL FORM DB BASED ON ACTIVATION CODE
             string email = txtEmail.Text.Trim().ToString();
             if (bool.TryParse(Session["valid"].ToString(), out bool valid))
             {

@@ -48,11 +48,7 @@
                 CreateUserUrl="Registration/Register.aspx" 
                 HelpPageUrl="help.aspx"
                 PasswordRecoveryUrl="Registration/Forgot_Password.aspx" 
-                UserNameLabelText="Email address:" 
-<<<<<<< Updated upstream
-=======
-                
->>>>>>> Stashed changes
+                UserNameLabelText="Email address:"
                 OnLoginError="OnLoginError" 
                 PasswordRecoveryText = "Forgot your password?">
 
