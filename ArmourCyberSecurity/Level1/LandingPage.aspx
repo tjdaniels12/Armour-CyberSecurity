@@ -7,7 +7,7 @@
     <title></title>
     <script type="text/javascript">
         function ShowMsg() {
-            alert('Your Have Logged Out Successfully');
+            alert('You Have Logged Out Successfully');
             return true
         }
     </script>

@@ -41,6 +41,7 @@ namespace ArmourCyberSecurity.Registration
                                 if (result > 0)
                                 {
                                     Response.Redirect("~/Level1/LandingPage.aspx", false);
+                                    //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
                                 }
                                 else
                                 {
