@@ -45,10 +45,14 @@
                 Font-Size="10pt" 
                 Font-Names="Verdana" 
                 CreateUserText="Create a new user..."
-                CreateUserUrl="newUser.aspx" 
+                CreateUserUrl="Registration/Register.aspx" 
                 HelpPageUrl="help.aspx"
-                PasswordRecoveryUrl="getPass.aspx" 
+                PasswordRecoveryUrl="Registration/Forgot_Password.aspx" 
                 UserNameLabelText="Email address:" 
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
                 OnLoginError="OnLoginError" 
                 PasswordRecoveryText = "Forgot your password?">
 
@@ -95,7 +99,7 @@
                                         <td colspan="2">
                                             <asp:HyperLink runat="server" NavigateUrl="Registration/Register" ID="CreateUserLink">Create a new user...</asp:HyperLink>
                                             <br />
-                                            <asp:HyperLink runat="server" NavigateUrl="getPass.aspx" ID="PasswordRecoveryLink">Forgot your password?</asp:HyperLink>
+                                            <asp:HyperLink runat="server" NavigateUrl="Registration/Forgot_Password.aspx" ID="PasswordRecoveryLink">Forgot your password?</asp:HyperLink>
                                         </td>
                                     </tr>
                                 </table>

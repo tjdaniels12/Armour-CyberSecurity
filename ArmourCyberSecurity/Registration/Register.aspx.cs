@@ -12,6 +12,8 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Net.Mail;
 
 namespace ArmourCyberSecurity
 {
@@ -22,6 +24,7 @@ namespace ArmourCyberSecurity
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
 
         }
 
@@ -54,31 +57,100 @@ namespace ArmourCyberSecurity
                 {
                     case -1:
                         message = "Username already exists.\\nPlease choose a different username.";
+                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
                         break;
                     case -2:
                         message = "Supplied email address has already been used.";
+                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
                         break;
                     default:
                         message = "Registration successful.\\nAn activation email has been sent.";
+                        ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
                         SendActivationEmail(userId);
                         break;
                 }
+<<<<<<< Updated upstream
                 ClientScript.RegisterStartupScript(GetType(), "alert", "alert('" + message + "');", true);
+=======
+                
+                if (registered == true)
+                {
+                    Response.Redirect("~/Login.aspx", false);
+                }
+                
+>>>>>>> Stashed changes
             }
         }
 
 
+<<<<<<< Updated upstream
         private void SendActivationEmail(int userId)
         {
             //string constr = ConfigurationManager.ConnectionStrings["main"].ConnectionString;
             string constr = @"Server=LAPTOP-HM18U6J6; Database=ArmourCyberSecurity;Integrated Security=true;";
+=======
+        //private void SendActivationEmail(string userId)
+        //{
+        //    //string constr = ConfigurationManager.ConnectionStrings["main"].ConnectionString;
+        //    string constr = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
+        //    string activationCode = Guid.NewGuid().ToString();
+        //    string emailAddress = txtEmail.Text.Trim();
+        //    string username = txtUsername.Text.Trim();
+        //    string body = "Hello " + username + ",";
+        //    body += "<br /><br />Please click the following link to activate your account";
+        //    body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("Register", "Account_Activation?ActivationCode=" + activationCode) + "'>Click here to activate your account.</a>";
+        //    body += "<br /><br />Thanks";
+        //    using (SqlConnection con = new SqlConnection(constr))
+        //    {
+        //        using (SqlCommand cmd = new SqlCommand("INSERT INTO UserActivation VALUES(@UserId, @ActivationCode)"))
+        //        {
+        //            using (SqlDataAdapter sda = new SqlDataAdapter())
+        //            {
+        //                cmd.CommandType = CommandType.Text;
+        //                cmd.Parameters.AddWithValue("@UserId", userId);
+        //                cmd.Parameters.AddWithValue("@ActivationCode", activationCode);
+        //                cmd.Connection = con;
+        //                con.Open();
+        //                cmd.ExecuteNonQuery();
+        //                con.Close();
+        //            }
+        //        }
+        //    }
+        //    ConfirmationEmail(activationCode, username, body, emailAddress).Wait();
+
+        //}
+
+        private void SendActivationEmail(string userId)
+        {
+            string constr = @"Server=localhost\SQLEXPRESS01;Database=CyberArmourRoshan;Trusted_Connection=True;";
+>>>>>>> Stashed changes
             string activationCode = Guid.NewGuid().ToString();
-            string emailAddress = txtEmail.Text.Trim();
-            string username = txtUsername.Text.Trim();
-            string body = "Hello " + username + ",";
-            body += "<br /><br />Please click the following link to activate your account";
-            body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("Register", "Account_Activation?ActivationCode=" + activationCode) + "'>Click here to activate your account.</a>";
-            body += "<br /><br />Thanks";
+            string username = txtUsername.Text.Trim().ToString();
+            string email_body = "Hello, " + username + Environment.NewLine;
+            email_body = email_body + "Please click the following link to confirm your email and unlock full access to PrivacyComplianceSolutions.com<br /><br />" + Environment.NewLine;
+            email_body = email_body + "<a href = '" + Request.Url.AbsoluteUri.Replace("Registration/Register", "Level1/Account_Activation.aspx?ActivationCode=" + activationCode) + "'>Click here to activate your account.</a>" + Environment.NewLine;
+            email_body = email_body + "Privacy Compliance Group<br />" + Environment.NewLine;
+            email_body = email_body + "Powered by Armour Cybersecurity 2020<br />" + Environment.NewLine;
+
+
+            //MailMessage mm = new MailMessage("roshandeep810@gmail.com", "roshandeep1995@gmail.com");
+            MailMessage mm = new MailMessage("AccountVerification@PrivacyComplianceSolutions.com", txtEmail.Text.Trim().ToString())
+            {
+                Subject = "Confirm Your Email",
+                Body = email_body,
+                IsBodyHtml = true
+            };
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            NetworkCredential NetworkCred = new NetworkCredential();
+            NetworkCred.UserName = "roshandeep810@gmail.com";
+            NetworkCred.Password = "Simran@3395";
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
+
             using (SqlConnection con = new SqlConnection(constr))
             {
                 using (SqlCommand cmd = new SqlCommand("INSERT INTO UserActivation VALUES(@UserId, @ActivationCode)"))
@@ -95,33 +167,20 @@ namespace ArmourCyberSecurity
                     }
                 }
             }
-            ConfirmationEmail(activationCode, username, body, emailAddress).Wait();
-
         }
 
 
-        static async Task ConfirmationEmail(string activationCode, string username, string body, string emailAddress)
-        {
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("EmailVerification@CyberArmourSecurity.com", "Example User");
-            var subject = "Account Activation";
-            var to = new EmailAddress(emailAddress, username);
-            var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = body;
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
-        }
-
-        //private static string CreateSalt(int size)
+        //static async Task ConfirmationEmail(string activationCode, string username, string body, string emailAddress)
         //{
-        //    // Generate a cryptographic random number using the cryptographic 
-        //    // service provider
-        //    RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-        //    byte[] buff = new byte[size];
-        //    rng.GetBytes(buff);
-        //    // Return a Base64 string representation of the random number
-        //    return Convert.ToBase64String(buff);
+        //    var apiKey = "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";
+        //    var client = new SendGridClient(apiKey);
+        //    var from = new EmailAddress("EmailVerification@CyberArmourSecurity.com", "Example User");
+        //    var subject = "Account Activation";
+        //    var to = new EmailAddress(emailAddress, username);
+        //    var plainTextContent = "and easy to do anywhere, even with C#";
+        //    var htmlContent = body;
+        //    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+        //    var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         //}
 
         public class HashSalt
@@ -149,11 +208,6 @@ namespace ArmourCyberSecurity
 
             HashSalt hashSalt = new HashSalt { Hash = hashPassword, Salt = salt };
             return hashSalt;
-        }
-        bool IsValidEmail(string strIn)
-        {
-            // Return true if strIn is in valid email format.
-            return Regex.IsMatch(strIn, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
     }
 }

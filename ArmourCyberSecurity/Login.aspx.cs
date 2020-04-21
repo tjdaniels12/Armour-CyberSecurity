@@ -30,6 +30,7 @@ namespace ArmourCyberSecurity
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+<<<<<<< Updated upstream
             if (ValidateUser(Login1.UserName, Login1.Password))
             {
                 //FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
@@ -46,6 +47,45 @@ namespace ArmourCyberSecurity
         {
             // Return true if strIn is in valid email format.
             return Regex.IsMatch(strIn, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+=======
+            if (ValidateUser(Login1.UserName.Trim().ToString(), Login1.Password.Trim().ToString()))
+                using (SqlConnection con = new SqlConnection(connetionString))
+                {
+                    
+                    using (SqlCommand command = new SqlCommand("SELECT ConfirmedEmail FROM Users WHERE Email = @Email"))
+                    {
+                        command.Parameters.AddWithValue("@Email", Login1.UserName.Trim().ToString());
+                        command.Connection = con;
+                        con.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            bool verifiedEmail = Convert.ToBoolean(reader["ConfirmedEmail"]);
+                            if (verifiedEmail == true)
+                            {
+                                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, true);
+                                con.Close();
+                                //Response.Redirect("~/Section1.aspx", true);
+                            }
+                            else
+                            {
+                                Login1.FailureText = "This email is not verified. Please check your inbox for a confirmation email.";
+                            }
+                        }
+                        else
+                        {
+                            //username not found, which is impossible here
+                            Login1.FailureText += "This should never happen";
+                        }
+                    }
+                    con.Close();
+                }
+            else
+            {
+                Login1.FailureText = "Credentials do not match our records.";
+            }
+                
+>>>>>>> Stashed changes
         }
 
 
@@ -65,16 +105,16 @@ namespace ArmourCyberSecurity
                 {
                     string salt = reader["salt"].ToString();
                     string hash = reader["password"].ToString();
-                    Login1.FailureText += "\nreached VerifyPassword.";
-                    Login1.FailureText += "\nsalt:" + salt + "\nhash:" + hash;
+                    conn.Close();
                     return VerifyPassword(pass, hash, salt);
 
                 }
                 else
                 {
-                    Login1.FailureText += "reader.Read() failed.";
+                    conn.Close();
                     return false;
                 }
+                
                
             }
         }
